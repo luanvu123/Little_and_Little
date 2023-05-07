@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  line-height: normal;
+}
+
+.popup-overlay {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+:root {
+  /* fonts */
+  --medium: Montserrat;
+  --koni-28: "iCiel Koni";
+
+  /* font sizes */
+  --medium-size: 20px;
+  --bold-size: 24px;
+  --montserrat-16-bold-size: 16px;
+  --medium1-size: 18px;
+  --koni-28-size: 28px;
+  --font-size-53xl: 72px;
+  --font-size-13xl: 32px;
+  --font-size-11xl: 30px;
+  --header-size: 96px;
+
+  /* Colors */
+  --w: #fff;
+  --color-dimgray-100: #6c7272;
+  --color-dimgray-200: #666;
+  --text: #23221f;
+  --color-darkorange-100: #ff8a00;
+  --color-darkorange-200: #fa7d09;
+  --ultimate-gray: #989a9c;
+  --color-black: #000;
+  --color-darkslategray: #444;
+  --yellow-1: #ffc226;
+  --color-darkslateblue: #12265a;
+
+  /* Gaps */
+  --gap-base: 16px;
+  --gap-5xs: 8px;
+  --gap-61xl: 80px;
+  --gap-9xs: 4px;
+  --gap-5xl: 24px;
+
+  /* Paddings */
+  --padding-13xl: 32px;
+  --padding-37xl: 56px;
+  --padding-3xs: 10px;
+  --padding-5xl: 24px;
+  --padding-base: 16px;
+  --padding-xl: 20px;
+
+  /* border radiuses */
+  --br-13xl: 32px;
+  --br-14xl: 33px;
+  --br-base: 16px;
+  --br-37xl: 56px;
+  --br-3xs: 10px;
+  --br-xl: 20px;
+
+  /* Effects */
+  --button: 0px 4px 8px rgba(165, 15, 15, 0.45);
+  --inner-shadow: -1px 3px 3px rgba(178, 91, 11, 0.5) inset;
+  --tabs: 4px 4px 45px rgba(109, 46, 0, 0.35);
+}

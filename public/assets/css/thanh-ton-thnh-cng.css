@@ -1,0 +1,357 @@
+.bg-icon1 {
+  position: absolute;
+  top: 47px;
+  left: 48px;
+  border-radius: 0 0 var(--br-37xl) var(--br-37xl);
+  width: 1838px;
+  height: 1012px;
+  overflow: hidden;
+}
+.group-icon15,
+.image-3-icon {
+  position: absolute;
+  height: 100%;
+  width: 99.93%;
+  top: 0;
+  right: 0.07%;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.image-3-icon {
+  height: 31.2%;
+  width: 50%;
+  top: 8%;
+  right: 25%;
+  bottom: 60.8%;
+  left: 25%;
+  object-fit: cover;
+}
+.alt20210501 {
+  position: absolute;
+  top: 236px;
+  left: 45px;
+  font-size: var(--font-size-13xl);
+  display: inline-block;
+  text-align: left;
+  width: 210px;
+}
+.v-cng {
+  top: 299px;
+  left: 91px;
+  display: flex;
+  color: var(--yellow-1);
+  align-items: center;
+  justify-content: center;
+  width: 118px;
+  height: 31px;
+}
+.b3,
+.ngy-s-dng1,
+.v-cng {
+  position: absolute;
+}
+.ngy-s-dng1 {
+  top: 378px;
+  left: 36px;
+  font-size: var(--medium1-size);
+  line-height: 26px;
+  font-weight: 500;
+  color: var(--text);
+}
+.b3 {
+  top: 338px;
+  left: 135px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 8px;
+}
+.tick-1-icon,
+.v-11 {
+  position: absolute;
+  overflow: hidden;
+}
+.tick-1-icon {
+  top: calc(50% + 186px);
+  left: calc(50% - 24px);
+  width: 48px;
+  height: 48px;
+}
+.v-11 {
+  height: 95.42%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 4.58%;
+  left: 0;
+  border-radius: var(--br-base);
+  background-color: var(--w);
+}
+.tick-1-icon1,
+.v-1 {
+  position: absolute;
+  top: 42px;
+  left: 125px;
+  width: 300px;
+  height: 524px;
+}
+.tick-1-icon1 {
+  height: 9.16%;
+  width: 16%;
+  top: 83.21%;
+  right: 42%;
+  bottom: 7.63%;
+  left: 42%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.v-2,
+.v-3,
+.v-4 {
+  position: absolute;
+  top: 42px;
+  left: 448px;
+  width: 300px;
+  height: 524px;
+}
+.v-3,
+.v-4 {
+  left: 771px;
+}
+.v-4 {
+  left: 1094px;
+}
+.next-btn-icon1,
+.previous-btn-icon1 {
+  position: absolute;
+  height: 9.33%;
+  width: 3.75%;
+  top: 45.72%;
+  right: 94.28%;
+  bottom: 44.95%;
+  left: 1.97%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.next-btn-icon1 {
+  right: 2.04%;
+  left: 94.21%;
+}
+.s-lng-12,
+.trang-13 {
+  position: absolute;
+  top: 578px;
+  left: 125px;
+  font-size: var(--medium-size);
+  line-height: 30px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+}
+.trang-13 {
+  left: 1312px;
+  font-size: var(--medium1-size);
+  line-height: 26px;
+  opacity: 0.5;
+}
+.khung-cha-v1 {
+  position: absolute;
+  top: 286px;
+  left: 269px;
+  width: 1520px;
+  height: 654px;
+  overflow: hidden;
+  font-size: var(--bold-size);
+  color: var(--color-black);
+  font-family: var(--medium);
+}
+.xem-chi-tit8 {
+  position: absolute;
+  top: calc(50% - 16px);
+  left: calc(50% - 55px);
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 20px;
+}
+.group-icon16 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.span {
+  letter-spacing: 0.04em;
+}
+.ti-v-txt-container {
+  line-break: anywhere;
+  width: 100%;
+}
+.ti-v {
+  position: absolute;
+  height: 50%;
+  width: 55%;
+  top: 15%;
+  left: 22.5%;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+}
+.xem-chi-tit-btn4 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-shadow: var(--button);
+  overflow: hidden;
+}
+.btn-xem-chi-tit4 {
+  position: absolute;
+  height: 3.62%;
+  width: 8.33%;
+  top: 87.32%;
+  right: 50.68%;
+  bottom: 9.06%;
+  left: 40.99%;
+  overflow: hidden;
+}
+.span1 {
+  letter-spacing: 0.09em;
+}
+.btn-xem-chi-tit5 {
+  position: absolute;
+  height: 3.62%;
+  width: 8.33%;
+  top: 87.32%;
+  right: 41.04%;
+  bottom: 9.06%;
+  left: 50.63%;
+  overflow: hidden;
+}
+.alvin-arnold-votay1-1-icon {
+  position: absolute;
+  top: 347px;
+  left: -176px;
+  width: 510px;
+  height: 594px;
+  object-fit: cover;
+}
+.frame7 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1104px;
+  overflow: hidden;
+  text-align: center;
+}
+.thanh-ton-thnh {
+  position: absolute;
+  top: 144px;
+  left: 429px;
+  font-size: var(--header-size);
+  line-height: 100px;
+  font-weight: 900;
+}
+.navigation-child1 {
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  width: 1924.5px;
+  height: 146.82px; */
+   width: 2087.5px;
+    height: 181.82px;
+    margin-top: -27px;
+    margin-left: -78px;
+}
+.sample-text9 {
+  position: relative;
+}
+.tags-parent1,
+.tags9 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.tags9 {
+  border-radius: var(--br-14xl);
+  padding: var(--padding-3xs) var(--padding-5xl);
+  opacity: 0.8;
+  cursor: pointer;
+}
+.tags-parent1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  gap: var(--gap-61xl);
+}
+.group-icon18 {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.group-parent7 {
+  position: absolute;
+  top: 5px;
+  left: 753px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+  font-size: var(--montserrat-16-bold-size);
+}
+.frame-parent12 {
+  position: absolute;
+  top: 29px;
+  left: 703px;
+  width: 891px;
+  height: 42px;
+}
+.little-little-logo-ngang-13 {
+  position: absolute;
+  top: 1px;
+  left: 201px;
+  width: 229px;
+  height: 91px;
+  object-fit: cover;
+}
+.navigation3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1924.5px;
+  height: 122.46px;
+  font-family: var(--medium);
+}
+.thanh-ton-thnh-cng {
+  position: relative;
+  border-radius: var(--br-13xl);
+  background: radial-gradient(50% 50%at 50% 50%, #ffdb7e, #ff7a00);
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--medium1-size);
+  color: var(--w);
+  font-family: var(--koni-28);
+}

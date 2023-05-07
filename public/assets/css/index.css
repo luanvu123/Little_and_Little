@@ -1,0 +1,315 @@
+.previous-icon {
+  position: relative;
+  width: 7.66px;
+  height: 13.31px;
+  flex-shrink: 0;
+}
+.thng-5-2021 {
+  position: relative;
+  line-height: 36px;
+}
+.arrows {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.month-selector {
+  position: relative;
+  width: 222.63px;
+  height: 36px;
+  flex-shrink: 0;
+}
+.cn,
+.t2,
+.t3,
+.t4,
+.t5,
+.t6,
+.t7 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 36px;
+}
+.t2,
+.t3,
+.t4,
+.t5,
+.t6,
+.t7 {
+  left: 66px;
+}
+.t3,
+.t4,
+.t5,
+.t6,
+.t7 {
+  left: 131px;
+}
+.t4,
+.t5,
+.t6,
+.t7 {
+  left: 199px;
+}
+.t5,
+.t6,
+.t7 {
+  left: 257px;
+}
+.t6,
+.t7 {
+  left: 314px;
+}
+.t7 {
+  left: 371px;
+}
+.weekdays {
+  position: relative;
+  width: 402px;
+  height: 36px;
+  flex-shrink: 0;
+  font-size: var(--bold-size);
+  color: var(--color-darkorange-100);
+}
+.div,
+.div1 {
+  color: var(--color-dimgray-200);
+  display: none;
+}
+.div {
+  position: absolute;
+  top: 0;
+  left: -199px;
+  line-height: 30px;
+  font-weight: 500;
+}
+.div1 {
+  left: -135px;
+}
+.div1,
+.div2,
+.div3,
+.div4,
+.div5,
+.div6 {
+  position: absolute;
+  top: 0;
+  line-height: 30px;
+  font-weight: 500;
+}
+.div2 {
+  left: -69px;
+  color: var(--color-dimgray-200);
+  display: none;
+}
+.div3,
+.div4,
+.div5,
+.div6 {
+  left: 0;
+}
+.div4,
+.div5,
+.div6 {
+  left: 58px;
+}
+.div5,
+.div6 {
+  left: 117px;
+}
+.div6 {
+  left: 178px;
+}
+.week-01 {
+  position: relative;
+  width: 192px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.div7,
+.div8,
+.div9 {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  line-height: 30px;
+  font-weight: 500;
+}
+.div8,
+.div9 {
+  left: 66px;
+}
+.div9 {
+  left: 132px;
+}
+.current-day-icon {
+  position: absolute;
+  top: 0;
+  left: 181px;
+  width: 48px;
+  height: 48px;
+}
+.div10,
+.div11,
+.div12,
+.div13 {
+  position: absolute;
+  top: 9px;
+  line-height: 30px;
+  font-weight: 500;
+}
+.div10 {
+  left: 198px;
+  color: var(--w);
+}
+.div11,
+.div12,
+.div13 {
+  left: 259px;
+}
+.div12,
+.div13 {
+  left: 314px;
+}
+.div13 {
+  left: 379px;
+}
+.week-02 {
+  position: relative;
+  width: 394px;
+  height: 48px;
+  flex-shrink: 0;
+}
+.div15,
+.div16,
+.div17,
+.div18,
+.div19,
+.div20 {
+  position: absolute;
+  top: 0;
+  left: 66px;
+  line-height: 30px;
+  font-weight: 500;
+}
+.div16,
+.div17,
+.div18,
+.div19,
+.div20 {
+  left: 131px;
+}
+.div17,
+.div18,
+.div19,
+.div20 {
+  left: 199px;
+}
+.div18,
+.div19,
+.div20 {
+  left: 258px;
+}
+.div19,
+.div20 {
+  left: 317px;
+}
+.div20 {
+  left: 379px;
+}
+.week-03 {
+  position: relative;
+  width: 400px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.div22,
+.div23,
+.div24,
+.div26 {
+  position: absolute;
+  top: 0;
+  left: 64px;
+  line-height: 30px;
+  font-weight: 500;
+}
+.div23,
+.div24,
+.div26 {
+  left: 133px;
+}
+.div24,
+.div26 {
+  left: 198px;
+}
+.div26 {
+  left: 316px;
+}
+.week-04 {
+  position: relative;
+  width: 402px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.div30,
+.div32,
+.div33,
+.div34 {
+  position: absolute;
+  top: 0;
+  left: 132px;
+  line-height: 30px;
+  font-weight: 500;
+}
+.div32,
+.div33,
+.div34 {
+  left: 259px;
+}
+.div33,
+.div34 {
+  left: 318px;
+}
+.div34 {
+  left: 381px;
+  color: var(--color-dimgray-200);
+  display: none;
+}
+.week-05 {
+  position: relative;
+  width: 337px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.calendar,
+.calendar-events {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  font-size: var(--medium-size);
+}
+.calendar {
+  position: relative;
+  border-radius: var(--br-13xl);
+  background-color: var(--w);
+  box-shadow: var(--tabs);
+  padding: var(--padding-13xl) var(--padding-37xl) var(--padding-37xl);
+  box-sizing: border-box;
+  gap: 32px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  text-align: center;
+  font-size: var(--bold-size);
+  color: var(--text);
+  font-family: var(--medium);
+}
