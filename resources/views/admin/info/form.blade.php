@@ -29,7 +29,7 @@
                         </div>
                            <div class="form-group">
                             {!! Form::label('Image', 'Hình ảnh logo', []) !!}
-                            {!! Form::file('image', ['class'=>'form-control-file']) !!}
+                            {!! Form::file('logo', ['class'=>'form-control-file']) !!}
                             @if(isset($info))
                               <img width="150" src="{{asset('uploads/logo/'.$info->logo)}}">
                             @endif
@@ -46,14 +46,46 @@
                             {!! Form::label('description', 'Mô tả Website', []) !!}
                             {!! Form::textarea('text4', isset($info) ? $info->text4 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
                         </div>
-                           <div class="form-group">
+                        <div class="form-group">
                             {!! Form::label('description', 'Mô tả Website', []) !!}
                             {!! Form::textarea('text5', isset($info) ? $info->text5 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
                         </div>
+                         <div class="form-group">
+                            {!! Form::label('description', 'Mô tả Website', []) !!}
+                            {!! Form::textarea('text6', isset($info) ? $info->text6 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('description', 'Mô tả Website', []) !!}
+                            {!! Form::textarea('text7', isset($info) ? $info->text7 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('description', 'Mô tả Website', []) !!}
+                            {!! Form::textarea('text8', isset($info) ? $info->text8 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('description', 'Mô tả Website', []) !!}
+                            {!! Form::textarea('text9', isset($info) ? $info->text9 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('description', 'Mô tả Website', []) !!}
+                            {!! Form::textarea('text10', isset($info) ? $info->text10 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
+                        </div>
 
                           <div class="form-group">
-                            {!! Form::label('Text6', 'text6', []) !!}
-                            {!! Form::text('text6', isset($info) ? $info->address : '', ['class'=>'form-control','placeholder'=>'...',]) !!}
+                            {!! Form::label('Text6', 'Địa chỉ', []) !!}
+                            {!! Form::text('address', isset($info) ? $info->address : '', ['class'=>'form-control','placeholder'=>'...','required'=>'required']) !!}
+                        </div>
+                         <div class="form-group">
+                            {!! Form::label('Text6', 'Email', []) !!}
+                            {!! Form::text('email', isset($info) ? $info->email : '', ['class'=>'form-control','placeholder'=>'...','required'=>'required']) !!}
+                        </div>
+                         <div class="form-group">
+                            {!! Form::label('Text6', 'Số điện thoại', []) !!}
+                            {!! Form::text('phone', isset($info) ? $info->phone : '', ['class'=>'form-control','placeholder'=>'...','required'=>'required']) !!}
+                        </div>
+                          <div class="form-group">
+                            {!! Form::label('Text6', 'Số điện thoại navbar', []) !!}
+                            {!! Form::text('phonenav', isset($info) ? $info->phonenav : '', ['class'=>'form-control','placeholder'=>'...','required'=>'required']) !!}
                         </div>
                             {!! Form::submit('Cập Nhật Thông tin', ['class'=>'btn btn-success']) !!}
                     {!! Form::close() !!}

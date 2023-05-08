@@ -39,4 +39,12 @@ Route::resource('info', InfoController::class);
 Route::post('/update-image-event-ajax', [EventController::class, 'update_image_event_ajax'])->name('update-image-event-ajax');
 Route::post('/update-image2-event-ajax', [EventController::class, 'update_image2_event_ajax'])->name('update-image2-event-ajax');
 Route::post('/update-image3-event-ajax', [EventController::class, 'update_image3_event_ajax'])->name('update-image3-event-ajax');
+
+
+
+
+Route::post('/delete-image-event-ajax', [EventController::class, 'delete_image_event_ajax'])->name('delete-image-event-ajax');
+Route::post('/delete-image2-event-ajax', [EventController::class, 'delete_image2_event_ajax'])->name('delete-image2-event-ajax');Route::post('/delete-image3-event-ajax', [EventController::class, 'delete_image3_event_ajax'])->name('delete-image3-event-ajax');
+
+
 Route::get('/trangthai-choose', [EventController::class, 'trangthai_choose'])->name('trangthai-choose');

@@ -17,14 +17,14 @@ class EventController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
 
     public function index()
     {
-        $list = Event::orderBy('id', 'ASC')->get();
+        $list = Event::orderBy('id', 'DESC')->get();
         return view('admin.event.index', compact('list'));
     }
 
@@ -48,7 +48,24 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        // $data = $request->all();
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:events',
+            'title_order' => 'required',
+            'description1' => 'nullable|string',
+            'description2' => 'nullable|string',
+            'description3' => 'nullable|string',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'price' => 'nullable|numeric',
+            'status' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image2' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image3' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'ngaytao' => 'nullable|string|max:255',
+            'ngaycapnhat' => 'nullable|string|max:255',
+        ]);
         $event = new Event();
         $event->title = $data['title'];
         $event->slug = $data['slug'];
@@ -56,6 +73,8 @@ class EventController extends Controller
         $event->description1 = $data['description1'];
         $event->description2 = $data['description2'];
         $event->description3 = $data['description3'];
+        $event->ngaytao = Carbon::now('Asia/Ho_Chi_Minh');
+        $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
         $start_date = Carbon::createFromFormat('Y-m-d', $request->input('start_date'))->format('Y-m-d');
         $event->start_date = $start_date;
 
@@ -97,63 +116,166 @@ class EventController extends Controller
 
     public function update_image_event_ajax(Request $request)
     {
+        $request->validate([
+            'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+        ]);
         $get_image = $request->file('file');
         $id = $request->id;
 
         if ($get_image) {
-            //Xóa ảnh
             $event = Event::find($id);
-            unlink('uploads/event/' . $event->image);
 
+            $old_image_path = public_path('uploads/event/' . $event->image);
+            if (file_exists($old_image_path) && is_file($old_image_path)) {
+                unlink($old_image_path);
+            }
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
-            $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
-            $get_image->move('uploads/event/', $new_image);
+            $new_image = $name_image . rand(0, 9999) . '.' . $get_image->getClientOriginalExtension();
+            $get_image->move(public_path('uploads/event/'), $new_image);
             $event->image = $new_image;
+            $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
             $event->save();
+
             toastr()->success('Thành công', 'Thay đổi ảnh thành công');
         }
     }
+
+    public function delete_image_event_ajax(Request $request)
+    {
+        $id = $request->event_id;
+
+        $event = Event::find($id);
+        $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
+        if ($event) {
+            $image_path = public_path('uploads/event/' . $event->image);
+
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+
+            $event->image = null;
+            $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
+            $event->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
+
+
     public function update_image2_event_ajax(Request $request)
     {
+        $request->validate([
+            'file2' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+        ]);
         $get_image2 = $request->file('file2');
         $id = $request->id;
 
         if ($get_image2) {
             //Xóa ảnh
             $event = Event::find($id);
-            unlink('uploads/event2/' . $event->image2);
+            // unlink('uploads/event2/' . $event->image2);
 
-            $get_name_image2 = $get_image2->getClientOriginalName();
-            $name_image2 = current(explode('.', $get_name_image2));
-            $new_image2 = $name_image2 . rand(0, 99) . '.' . $get_image2->getClientOriginalExtension();
-            $get_image2->move('uploads/event2/', $new_image2);
-            $event->image2 = $new_image2;
+            // $get_name_image2 = $get_image2->getClientOriginalName();
+            // $name_image2 = current(explode('.', $get_name_image2));
+            // $new_image2 = $name_image2 . rand(0, 99) . '.' . $get_image2->getClientOriginalExtension();
+            // $get_image2->move('uploads/event2/', $new_image2);
+            // $event->image2 = $new_image2;
+            $old_image_path = public_path('uploads/event2/' . $event->image2);
+            if (file_exists($old_image_path) && is_file($old_image_path)) {
+                unlink($old_image_path);
+            }
+
+            $get_name_image = $get_image2->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image . rand(0, 9999) . '.' . $get_image2->getClientOriginalExtension();
+            $get_image2->move(public_path('uploads/event2/'), $new_image);
+            $event->image2 = $new_image;
+            $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
             $event->save();
-            toastr()->success('Thành công', 'Thay đổi ảnh 2 thành công');
+            toastr()->success('Thành công', 'Cập nhật ảnh thành công');
         }
     }
+    public function delete_image2_event_ajax(Request $request)
+    {
+        $id = $request->event_id;
 
+        $event = Event::find($id);
+
+        if ($event) {
+            $image_path = public_path('uploads/event2/' . $event->image2);
+
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+
+            $event->image2 = null;
+            $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
+            $event->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
     public function update_image3_event_ajax(Request $request)
     {
+        $request->validate([
+            'file3' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+        ]);
         $get_image3 = $request->file('file3');
         $id = $request->id;
 
         if ($get_image3) {
             //Xóa ảnh
             $event = Event::find($id);
-            unlink('uploads/event3/' . $event->image3);
+            // unlink('uploads/event3/' . $event->image3);
 
-            $get_name_image3 = $get_image3->getClientOriginalName();
-            $name_image3 = current(explode('.', $get_name_image3));
-            $new_image3 = $name_image3 . rand(0, 99) . '.' . $get_image3->getClientOriginalExtension();
-            $get_image3->move('uploads/event3/', $new_image3);
-            $event->image3 = $new_image3;
+            // $get_name_image3 = $get_image3->getClientOriginalName();
+            // $name_image3 = current(explode('.', $get_name_image3));
+            // $new_image3 = $name_image3 . rand(0, 99) . '.' . $get_image3->getClientOriginalExtension();
+            // $get_image3->move('uploads/event3/', $new_image3);
+            // $event->image3 = $new_image3;
+            $old_image_path = public_path('uploads/event3/' . $event->image3);
+            if (file_exists($old_image_path) && is_file($old_image_path)) {
+                unlink($old_image_path);
+            }
+
+            $get_name_image = $get_image3->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image . rand(0, 9999) . '.' . $get_image3->getClientOriginalExtension();
+            $get_image3->move(public_path('uploads/event3/'), $new_image);
+            $event->image3 = $new_image;
+            $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
             $event->save();
-            toastr()->success('Thành công', 'Thay đổi ảnh 3 thành công');
+            toastr()->success('Thành công', 'Cập nhật ảnh thành công');
         }
     }
+    public function delete_image3_event_ajax(Request $request)
+    {
 
+        $id = $request->event_id;
+
+        $event = Event::find($id);
+        if ($event) {
+            $image_path = public_path('uploads/event3/' . $event->image3);
+
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+
+            $event->image3 = null;
+            $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
+            $event->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
 
     /**
      * Display the specified resource.
@@ -177,8 +299,22 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $data = $request->all();
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'title_order' => 'required',
+            'description1' => 'nullable|string',
+            'description2' => 'nullable|string',
+            'description3' => 'nullable|string',
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'price' => 'nullable|numeric',
+            'status' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image2' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image3' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+        // $data = $request->all();
         $event = Event::find($id);
         $event->title = $data['title'];
         $event->slug = $data['slug'];
@@ -192,7 +328,7 @@ class EventController extends Controller
 
         $event->price = $data['price'];
         $event->status = $data['status'];
-
+        $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
         $event->description1 = $data['description1'];
         $event->description2 = $data['description2'];
         $event->description3 = $data['description3'];
@@ -260,6 +396,7 @@ class EventController extends Controller
             unlink('uploads/event3/' . $event->image3);
         }
         //Xóa sự kiện
+        $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
         $event->delete();
         toastr()->success('Thành công', 'Xóa thành công');
         return redirect()->back();

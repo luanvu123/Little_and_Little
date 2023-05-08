@@ -19,6 +19,8 @@
                                 <th scope="col">Ảnh</th>
                                 <th scope="col">Ảnh nhỏ</th>
                                 <th scope="col">Ảnh nhỏ 2</th>
+                                <th scope="col">Ngày tạo</th>
+                                <th scope="col">Ngày cập nhật</th>
                                 <th scope="col">Quản lý</th>
                             </tr>
                         </thead>
@@ -55,6 +57,9 @@
                                                 color: transparent;
                                             }
                                         </style>
+                                        <button class="delete-image-btn" data-event_id="{{ $cate->id }}">Xóa
+                                            ảnh</button>
+
                                     </td>
                                     <td>
                                         <img width="100" src="{{ asset('uploads/event2/' . $cate->image2) }}">
@@ -68,6 +73,8 @@
                                                 color: transparent;
                                             }
                                         </style>
+                                        <button class="delete-image2-btn" data-event_id="{{ $cate->id }}">Xóa
+                                            ảnh</button>
                                     </td>
                                     <td>
                                         <img width="100" src="{{ asset('uploads/event3/' . $cate->image3) }}">
@@ -81,7 +88,11 @@
                                                 color: transparent;
                                             }
                                         </style>
+                                        <button class="delete-image3-btn" data-event_id="{{ $cate->id }}">Xóa
+                                            ảnh</button>
                                     </td>
+                                    <td>{{ $cate->ngaytao }}</td>
+                                    <td>{{ $cate->ngaycapnhat }}</td>
                                     <td>
                                         {!! Form::open([
                                             'method' => 'DELETE',
@@ -96,6 +107,7 @@
                             @endforeach
                         </tbody>
                     </table>
+
 
                 </div>
             </div>

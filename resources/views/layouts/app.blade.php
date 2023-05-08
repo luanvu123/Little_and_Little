@@ -277,8 +277,81 @@
 </script>
 
 
-
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.delete-image-btn').click(function() {
+            var event_id = $(this).data('event_id');
+            $.ajax({
+                url: "{{ route('delete-image-event-ajax') }}",
+                method: "POST",
+                data: {
+                    event_id: event_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#file-' + event_id).val('');
+                        $('#success_image').text('Xóa ảnh thành công');
+                        $('#success_image').css('color', 'green');
+                    } else {
+                        $('#success_image').text('Xóa ảnh thất bại');
+                        $('#success_image').css('color', 'red');
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.delete-image2-btn').click(function() {
+            var event_id = $(this).data('event_id');
+            $.ajax({
+                url: "{{ route('delete-image2-event-ajax') }}",
+                method: "POST",
+                data: {
+                    event_id: event_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#file2-' + event_id).val('');
+                        $('#success_image2').text('Xóa ảnh thành công');
+                        $('#success_image2').css('color', 'green');
+                    } else {
+                        $('#success_image2').text('Xóa ảnh thất bại');
+                        $('#success_image2').css('color', 'red');
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.delete-image3-btn').click(function() {
+            var event_id = $(this).data('event_id');
+            $.ajax({
+                url: "{{ route('delete-image3-event-ajax') }}",
+                method: "POST",
+                data: {
+                    event_id: event_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#file3-' + event_id).val('');
+                        $('#success_image3').text('Xóa ảnh thành công');
+                        $('#success_image3').css('color', 'green');
+                    } else {
+                        $('#success_image3').text('Xóa ảnh thất bại');
+                        $('#success_image3').css('color', 'red');
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 
 </html>
