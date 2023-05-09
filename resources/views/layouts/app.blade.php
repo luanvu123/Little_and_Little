@@ -325,7 +325,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
-
     <script type="text/javascript">
         $('.trangthai_choose').change(function() {
 
@@ -344,13 +343,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             });
         })
     </script>
-
     <script type="text/javascript">
         $(document).on('change', '.file_image', function() {
+
+            // Lấy ID của sự kiện
             var event_id = $(this).data('event_id');
+            // Lấy tập tin hình ảnh được chọn
             var files = $("#file-" + event_id)[0].files;
             var image = document.getElementById("file-" + event_id).files[0];
+            // Khởi tạo đối tượng form data để gửi qua ajax
             var form_data = new FormData();
+
+            // Thêm hình ảnh và ID sự kiện vào form data
             form_data.append("file", document.getElementById("file-" + event_id).files[0]);
             form_data.append("id", event_id);
 
@@ -372,16 +376,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     $('#success_image').html(
                         '<span class="text-success">Thay đổi ảnh thành công</span>');
                     $('img[data-event_id="' + event_id + '"]').attr('src',
-                        '{{ asset('
-                                uploads / event ') }}/' + response);
+                        '{{ asset('uploads/event') }}/' + response);
                 }
             });
         });
-
-
-
-
-
+    </script>
+    <script type="text/javascript">
         $(document).on('change', '.file_image2', function() {
 
             var event_id = $(this).data('event_id');
@@ -410,12 +410,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         '<span class="text-success">Thay đổi ảnh thành công</span>');
                     $('img[data-event_id="' + event_id + '"]').attr('src',
                         '{{ asset('
-                                                uploads / event2 ') }}/' + response);
+                                                                                                uploads / event2 ') }}/' +
+                        response);
                 }
             });
         });
-
-
+    </script>
+    <script type="text/javascript">
         $(document).on('change', '.file_image3', function() {
 
             var event_id = $(this).data('event_id');
@@ -444,13 +445,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         '<span class="text-success">Thay đổi ảnh thành công</span>');
                     $('img[data-event_id="' + event_id + '"]').attr('src',
                         '{{ asset('
-                                                uploads / event3 ') }}/' + response);
+                                                                                                uploads / event3 ') }}/' +
+                        response);
                 }
             });
         });
     </script>
-
-
     <script type="text/javascript">
         $(document).ready(function() {
             $('.delete-image-btn').click(function() {

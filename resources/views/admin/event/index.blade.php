@@ -55,7 +55,7 @@
                                             input[type=file] {
                                                 width: 90px;
                                                 color: transparent;
-                                            } 
+                                            }
                                         </style>
                                         <button class="delete-image-btn" data-event_id="{{ $cate->id }}">Xóa
                                             ảnh</button>
