@@ -33,15 +33,16 @@ class EventController extends Controller
      */
     public function create()
     {
+         $event_total=Event::all()->count();
         $list = Event::orderBy('id', 'ASC')->get();
         return view('admin.event.form', compact('list'));
     }
     public function trangthai_choose(Request $request)
     {
         $data = $request->all();
-        $movie = Event::find($data['id']);
-        $movie->status = $data['trangthai_val'];
-        $movie->save();
+        $event = Event::find($data['id']);
+        $event->status = $data['trangthai_val'];
+        $event->save();
     }
     /**
      * Store a newly created resource in storage.
@@ -116,15 +117,12 @@ class EventController extends Controller
 
     public function update_image_event_ajax(Request $request)
     {
-        $request->validate([
-            'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-        ]);
+
         $get_image = $request->file('file');
         $id = $request->id;
 
         if ($get_image) {
             $event = Event::find($id);
-
             $old_image_path = public_path('uploads/event/' . $event->image);
             if (file_exists($old_image_path) && is_file($old_image_path)) {
                 unlink($old_image_path);
@@ -146,7 +144,6 @@ class EventController extends Controller
         $id = $request->event_id;
 
         $event = Event::find($id);
-        $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
         if ($event) {
             $image_path = public_path('uploads/event/' . $event->image);
 

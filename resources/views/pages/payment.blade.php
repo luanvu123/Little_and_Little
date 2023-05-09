@@ -117,7 +117,7 @@
           <div class="group-parent10">
             <img class="group-icon24" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-            <b class="sample-text12">0123456789</b>
+            <b class="sample-text12">{{$info->phonenav}}</b>
           </div>
         </div>
         <img

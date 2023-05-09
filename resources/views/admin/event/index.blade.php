@@ -55,12 +55,14 @@
                                             input[type=file] {
                                                 width: 90px;
                                                 color: transparent;
-                                            }
+                                            } 
                                         </style>
                                         <button class="delete-image-btn" data-event_id="{{ $cate->id }}">Xóa
                                             ảnh</button>
 
                                     </td>
+
+
                                     <td>
                                         <img width="100" src="{{ asset('uploads/event2/' . $cate->image2) }}">
                                         <input type="file" data-event_id="{{ $cate->id }}"

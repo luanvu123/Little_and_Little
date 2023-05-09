@@ -18,8 +18,8 @@
 
             <img class="converted-05-1-icon" alt="" src="{{ asset('assets/18451-converted05-1@2x.png') }}" />
 
-            <div class="m-sen">ĐẦM SEN</div>
-            <div class="park">PARK</div>
+            <div class="m-sen">{{$info->text1}}</div>
+            <div class="park">{{$info->text2}}</div>
             <div class="frame1">
                 <img class="group-icon" alt="" src="{{ asset('assets/group.svg') }}" />
 
@@ -58,37 +58,36 @@
                 </div>
                 <div class="lorem-ipsum-dolor-container">
                     <p class="lorem-ipsum-dolor">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Suspendisse ac mollis justo. Etiam volutpat tellus quis risus
-                        volutpat, ut posuere ex facilisis.
+                       {{$info->text3}}
                     </p>
-                    <p class="lorem-ipsum-dolor">&nbsp;</p>
                     <p class="lorem-ipsum-dolor">
-                        Suspendisse iaculis libero lobortis condimentum gravida. Aenean
-                        auctor iaculis risus, lobortis molestie lectus consequat a.
+                          {{$info->text4}}
+                    </p>
+                    <p class="lorem-ipsum-dolor">
+                        {{$info->text5}}
                     </p>
                 </div>
                 <div class="frame-container">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame2.svg') }}" />
 
-                    <b class="lorem-ipsum-dolor1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <b class="lorem-ipsum-dolor1"> {{$info->text6}}
                     </b>
                 </div>
                 <div class="frame-div">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame3.svg') }}" />
 
-                    <b class="lorem-ipsum-dolor1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <b class="lorem-ipsum-dolor1"> {{$info->text7}}
                     </b>
                 </div>
                 <div class="frame-parent1">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame3.svg') }}" />
 
-                    <b class="lorem-ipsum-dolor1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <b class="lorem-ipsum-dolor1"> {{$info->text8}}
                     </b>
                 </div>
                 <div class="frame-parent2">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame4.svg') }}" />
-                    <b class="lorem-ipsum-dolor1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <b class="lorem-ipsum-dolor1"> {{$info->text9}}
                     </b>
                 </div>
 
@@ -121,7 +120,7 @@
                 <div class="group-group">
                     <img class="group-icon4" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-                    <b class="sample-text">0123456789</b>
+                    <b class="sample-text">{{$info->phonenav}}</b>
                 </div>
             </div>
             <img class="little-little-logo-ngang-1" alt=""

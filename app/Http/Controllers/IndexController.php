@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-use App\Models\Detail;
+use App\Models\Info;
+
 class IndexController extends Controller
 {
     public function home()
@@ -16,12 +17,11 @@ class IndexController extends Controller
     {
         $slideCount = 0;
         $events = Event::where('status', 1)->orderBy('id', 'DESC')->get();
-        return view('pages.events', compact('events','slideCount'));
+        return view('pages.events', compact('events', 'slideCount'));
     }
     public function detail($slug)
     {
-
-          $detail = Event::where('slug',$slug)->where('status',1)->first();
+        $detail = Event::where('slug', $slug)->where('status', 1)->first();
         return view('pages.details', compact('detail'));
     }
     public function payment()

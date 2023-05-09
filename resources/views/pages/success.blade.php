@@ -103,7 +103,7 @@
                  <div class="group-parent7">
                      <img class="group-icon18" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-                     <b class="sample-text9">0123456789</b>
+                     <b class="sample-text9">{{$info->phonenav}}</b>
                  </div>
              </div>
              <img class="little-little-logo-ngang-13" alt=""

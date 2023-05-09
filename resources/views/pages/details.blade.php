@@ -36,7 +36,7 @@
                          <img class="frame-inner" alt="" src="{{ asset('uploads/event2/' . $detail->image2) }}" />
                      </div>
                      <div class="lorem-ipsum-is">
-                         {{ $detail->description1 }}
+                         {{ $detail->description2 }}
                      </div>
                  </div>
                  <div class="frame-parent5">
@@ -44,14 +44,14 @@
                          <img class="frame-inner" alt="" src="{{ asset('uploads/event3/' . $detail->image3) }}" />
                      </div>
                      <div class="lorem-ipsum-is1">
-                         {{ $detail->description2 }}
+                         {{ $detail->description3 }}
                      </div>
                  </div>
                  <div class="lorem-ipsum-is-container">
                      <span class="lorem-ipsum-is-container1">
-                         <b class="lorem-ipsum">Lorem Ipsum</b>
+                         <b class="lorem-ipsum">{{ $detail->title }}</b>
                          <span class="is-simply-dummy">
-                             {{ $detail->description3 }}</span>
+                             {{ $detail->description1 }}</span>
                      </span>
                  </div>
              </div>
@@ -78,7 +78,7 @@
                  <div class="group-parent1">
                      <img class="group-icon8" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-                     <b class="sample-text3">0123456789</b>
+                     <b class="sample-text3">{{ $info->phonenav }}</b>
                  </div>
              </div>
              <img class="little-little-logo-ngang-11" alt=""

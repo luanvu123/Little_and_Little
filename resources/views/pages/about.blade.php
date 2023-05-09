@@ -46,9 +46,7 @@
                 </div>
             </div>
             <div class="lorem-ipsum-dolor5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                ac mollis justo. Etiam volutpat tellus quis risus volutpat, ut posuere
-                ex facilisis.
+               {{$info->text10}}
             </div>
             <div class="a-ch1">
                 <img class="group-icon26" alt="" src="{{ asset('assets/group15.svg') }}" />
@@ -58,7 +56,7 @@
                 <div class="a-ch-parent">
                     <div class="a-ch2">Địa chỉ:</div>
                     <div class="u-c-phng">
-                        86/33 Âu Cơ, Phường 9, Quận Tân Bình, TP. Hồ Chí Minh
+                        {{$info->address}}
                     </div>
                 </div>
             </div>
@@ -67,7 +65,7 @@
 
                 <div class="email-parent">
                     <div class="email3">Email:</div>
-                    <div class="investigateyour-sitecom">investigate@your-site.com</div>
+                    <div class="investigateyour-sitecom">{{$info->email}}</div>
                 </div>
                 <img class="mail-inbox-app-1-icon" alt="" src="{{ asset('assets/mailinboxapp-1.svg') }}" />
             </div>
@@ -79,7 +77,7 @@
 
                     <div class="in-thoi-parent">
                         <div class="in-thoi3">Điện thoại</div>
-                        <div class="investigateyour-sitecom">+84 145 689 798</div>
+                        <div class="investigateyour-sitecom">{{$info->phone}}</div>
                     </div>
                 </div>
             </div>
@@ -104,7 +102,7 @@
                 <div class="group-parent11">
                     <img class="group-icon29" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-                    <b class="sample-text15">0123456789</b>
+                    <b class="sample-text15">{{$info->phonenav}}</b>
                 </div>
             </div>
             <img class="little-little-logo-ngang-15" alt=""

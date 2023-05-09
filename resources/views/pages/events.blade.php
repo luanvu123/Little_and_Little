@@ -23,6 +23,7 @@
                 <div class="s-kin-ni">Sự kiện nổi bật</div>
 
 
+         
                 <div class="s-kin-11">
                     @foreach ($events as $key => $event)
                         @include('pages.event_slider', ['event' => $event])
@@ -59,7 +60,7 @@
                 <div class="group-parent6">
                     <img class="group-icon14" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-                    <b class="s-kin-13">0123456789</b>
+                    <b class="s-kin-13">{{ $info->phonenav }}</b>
                 </div>
             </div>
             <img class="little-little-logo-ngang-12" alt=""
@@ -110,51 +111,77 @@
     </script>
     <script>
         $(document).ready(function() {
-                    // Lấy danh sách các phần tử trong slider
-                    var slides = $(".s-kin-11 .s-kin-12");
+            // Lấy danh sách các phần tử trong slider
+            var slides = $(".s-kin-11 .s-kin-12");
 
-                    // Thiết lập phần tử hiển thị đầu tiên
-                    var currentSlide = 0;
-                    slides.eq(currentSlide).addClass("current-slide");
+            // Thiết lập phần tử hiển thị đầu tiên
+            var currentSlide = 0;
+            slides.eq(currentSlide).addClass("current-slide");
 
-                    // Thêm sự kiện click vào nút next
-                    $(".next-btn-icon").click(function() {
-                        // Xác định phần tử tiếp theo
-                        var nextSlide = currentSlide + 1;
-                        if (nextSlide >= slides.length) {
-                            nextSlide = 0;
-                        }
+            // Thêm sự kiện click vào nút next
+            $(".next-btn-icon").click(function() {
+                // Xác định phần tử tiếp theo
+                var nextSlide = currentSlide + 1;
+                if (nextSlide >= slides.length) {
+                    nextSlide = 0;
+                }
 
-                        // Chuyển slide
-                        slides.eq(currentSlide).removeClass("current-slide");
-                        slides.eq(nextSlide).addClass("current-slide");
+                // Chuyển slide
+                slides.eq(currentSlide).removeClass("current-slide");
+                slides.eq(nextSlide).addClass("current-slide");
 
-                        // Cập nhật vị trí của các phần tử
-                        slides.detach();
-                        slides.slice(nextSlide).appendTo(".s-kin-11");
-                        slides.slice(0, nextSlide).appendTo(".s-kin-11");
+                // Cập nhật vị trí của các phần tử
+                slides.detach();
+                slides.slice(nextSlide).appendTo(".s-kin-11");
+                slides.slice(0, nextSlide).appendTo(".s-kin-11");
 
-                        // Cập nhật biến currentSlide
-                        currentSlide = nextSlide;
-                    });
-                    // Thêm sự kiện click vào nút previous
-                    $(".previous-btn-icon").click(function() {
-                        // Xác định phần tử trước đó
-                        var prevSlide = currentSlide - 1;
+                // Cập nhật biến currentSlide
+                currentSlide = nextSlide;
+            });
 
-                        // Kiểm tra nếu đang ở slide đầu tiên thì quay lại slide cuối cùng
-                        if (prevSlide < 0) {
-                            prevSlide = eventCount - 1;
-                        }
+            // Thêm sự kiện click vào nút previous
+            // $(".previous-btn-icon").click(function() {
+            //     // Xác định phần tử trước đó
+            //     var prevSlide = currentSlide - 1;
 
-                        // Hiển thị lại 4 sự kiện trước đó
-                        $(".s-kin-12").hide();
-                        for (var i = prevSlide * 4; i < prevSlide * 4 + 4 && i < script eventCount; i++) {
-                            $($(".s-kin-12")[i]).show();
-                        }
+            //     // Kiểm tra nếu đang ở slide đầu tiên thì quay lại slide cuối cùng
+            //     if (prevSlide < 0) {
+            //         prevSlide = slides.length - 1;
+            //     }
 
-                        // Cập nhật giá trị biến đếm slide hiện tại
-                        currentSlide = prevSlide;
-                    });
+            //     // Hiển thị lại 4 sự kiện trước đó
+            //     $(".s-kin-12").hide();
+            //     for (var i = prevSlide * 4; i < prevSlide * 4 + 4 && i < slides.length; i++) {
+            //         $($(".s-kin-12")[i]).show();
+            //     }
+
+            //     // Cập nhật giá trị biến đếm slide hiện tại
+            //     currentSlide = prevSlide;
+            // });
+            $(".previous-btn-icon").click(function() {
+                // Xác định phần tử trước đó
+                var prevSlide = currentSlide - 1;
+                if (prevSlide < 0) {
+                    prevSlide = slides.length - 1;
+                }
+
+                // Chuyển slide
+                slides.eq(currentSlide).removeClass("current-slide");
+                slides.eq(prevSlide).addClass("current-slide");
+
+                // Cập nhật vị trí của các phần tử
+                slides.detach();
+                slides.slice(prevSlide).appendTo(".s-kin-11");
+                slides.slice(0, prevSlide).appendTo(".s-kin-11");
+
+                // Cập nhật biến currentSlide
+                currentSlide = prevSlide;
+            });
+        });
+
     </script>
+
+
+
+
 @endsection
