@@ -24,7 +24,7 @@
                     <div class="s-tin-thanh-ton1">
                         <b class="s-tin-thanh">Số thẻ</b>
                         <div class="wrapper">
-                            <div class="nguyen-thi-ngoc">3641 4513 4369 7895</div>
+                            {{-- <div class="nguyen-thi-ngoc">{{$total_price_event}}</div> --}}
                         </div>
                     </div>
                     <div class="s-tin-thanh-ton1">

@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TicketBookingController;
@@ -57,12 +58,10 @@ Route::post('/delete-image2-event-ajax', [EventController::class, 'delete_image2
 Route::get('/trangthai-choose', [EventController::class, 'trangthai_choose'])->name('trangthai-choose');
 Route::get('/goi-choose', [PackageController::class, 'goi_choose'])->name('goi-choose');
 
-Route::post('add-cart', [App\Http\Controllers\CartController::class, 'index']);
-Route::get('carts', [App\Http\Controllers\CartController::class, 'show']);
-// Route::post('update-cart', [App\Http\Controllers\CartController::class, 'update']);
-// Route::get('carts/delete/{id}', [App\Http\Controllers\CartController::class, 'remove']);
-// Route::post('carts', [App\Http\Controllers\CartController::class, 'addCart']);
-
 Route::post('/submitBookingForm', [TicketBookingController::class, 'submit_Booking_Form'])->name('submitBookingForm');
 Route::get('/thanh-toan', [TicketBookingController::class, 'showBookingForm'])->name('payment');
+Route::post('/submitForm', [TicketBookingController::class, 'submit_Form'])->name('submitForm');
 
+
+Route::get('/contact', [ContactController::class, 'showContactForm']);
+Route::post('/contact', [ContactController::class, 'submitContactForm']);

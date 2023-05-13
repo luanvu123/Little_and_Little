@@ -88,8 +88,9 @@ line-height: 41px;
   top: 79.1%;
   right: 30.63%;
   bottom: 10.37%;
-  left: 30.63%;
-  box-shadow: var(--button);
+  /* left:30.63% */
+  left: 13.63%;
+  /* box-shadow: var(--button); */
   overflow: hidden;
 }
 .vector-icon12 {

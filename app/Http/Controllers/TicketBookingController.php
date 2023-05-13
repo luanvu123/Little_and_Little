@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Package;
 use App\Models\Event;
+use App\Models\Cart;
+
 
 class TicketBookingController extends Controller
 {
@@ -33,9 +35,20 @@ class TicketBookingController extends Controller
         return redirect()->route('payment');
     }
 
+    public function submit_Form(Request $request)
+    {
+        $product_id = $request->input('product_id');
+        $num_product = $request->input('num_product');
+        $detail = Event::find($product_id);
+        $product_price = $detail->price;
+        $total_price_event = $product_price * $num_product;
+        $request->session()->put('total_price_event', $total_price_event);
+        return redirect()->route('payment');
+    }
+
+
     public function showBookingForm()
     {
-        // Lấy thông tin người dùng từ session và truyền vào view payment.blade.php
         $packageName = session('package');
         $date = session('date');
         $fullname = session('fullname');
@@ -43,27 +56,31 @@ class TicketBookingController extends Controller
         $email = session('email');
         $number = session('number');
 
-        // Kiểm tra nếu một trong các thông tin bị thiếu thì quay trở lại trang đặt vé với thông báo lỗi
         if (!$packageName || !$date || !$fullname || !$phone || !$email || !$number) {
             return redirect()->route('homepage')->with('error', 'Vui lòng nhập đầy đủ thông tin để đặt vé.');
         }
 
-        // Kiểm tra xem số lượng vé có lớn hơn 0 không
         if ($number <= 0) {
             return redirect()->route('homepage')->with('error', 'Số lượng vé phải lớn hơn 0.');
         }
 
-        // Kiểm tra xem gói cước có tồn tại trong CSDL không
         $package = Package::where('name_package', $packageName)->first();
         if (!$package) {
             return redirect()->route('homepage')->with('error', 'Gói cước không tồn tại.');
         }
 
-        // Tính tổng giá trị của đơn đặt vé và chuyển sang trang thanh toán
         $totalPrice = $package->price_package * $number;
-        session()->forget(['package', 'date', 'fullname', 'phone', 'email', 'number']);
+
+        if (session()->has('total_price_event')) {
+            $totalPrice += session('total_price_event');
+        }
+
+        session()->flash('total_price_event', $totalPrice);
+
         return view('pages.payment', compact('packageName', 'date', 'fullname', 'phone', 'email', 'number', 'totalPrice'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

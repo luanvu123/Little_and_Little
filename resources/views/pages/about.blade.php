@@ -7,46 +7,73 @@
             <div class="lin-h">Liên hệ</div>
         </div>
         <div class="frame11">
-            <div class="group">
-                <img class="vector-icon9" alt="" src="{{ asset('assets/vector9.svg') }}" />
 
-                <img class="vector-icon10" alt="" src="{{ asset('assets/vector10.svg') }}" />
 
-                <img class="vector-icon11" alt="" src="{{ asset('assets/vector11.svg') }}" />
 
-                <div class="frame12" id="frameContainer1">
-                    <img class="group-icon25" alt="" src="{{ asset('assets/group2.svg') }}" />
 
-                    <div class="gi-lin-h-container1">
-
-                        <span class="span2">Gửi liên hệ
-                    </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
+            @endif
+
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <form method="POST" action="/contact">
+                @csrf
+
                 <img class="vector-icon12" alt="" src="{{ asset('assets/vector12.svg') }}" />
-            </div>
-            <div class="li-nhn-wrapper">
-                <div class="li-nhn">Lời nhắn</div>
-            </div>
-            <div class="frame-parent16">
-                <div class="frame-parent17">
-                    <div class="tn-wrapper">
-                        <div class="tn">Tên</div>
+                <div class="group">
+                    <img class="vector-icon9" alt="" src="{{ asset('assets/vector9.svg') }}" />
+
+                    <img class="vector-icon10" alt="" src="{{ asset('assets/vector10.svg') }}" />
+
+                    <img class="vector-icon11" alt="" src="{{ asset('assets/vector11.svg') }}" />
+                </div>
+
+                <textarea class="li-nhn-wrapper" id="message_contact" name="message_contact" rows="5"
+                    placeholder="Enter your message"></textarea>
+                <div class="frame-parent16">
+                    <div class="frame-parent17">
+                        <input type="text" class="tn-wrapper" id="name_contact" name="name_contact"
+                            placeholder="Enter your name">
+                        <input type="text" class="tn-wrapper" id="phone_contact" name="phone_contact"
+                            placeholder="Enter your phone number">
                     </div>
-                    <div class="tn-wrapper">
-                        <div class="tn">Số điện thoại</div>
+                    <div class="frame-parent17">
+
+                        <input type="email" class="email-wrapper" id="email_contact" name="email_contact"
+                            placeholder="Enter your email">
+                        <input type="text" class="a-ch-wrapper" id="address_contact" name="address_contact"
+                            placeholder="Enter your address">
+
                     </div>
                 </div>
-                <div class="frame-parent17">
-                    <div class="email-wrapper">
-                        <div class="tn">Email</div>
+
+
+
+
+                <button type="submit">
+                    <div class="frame12" id="frameContainer1">
+                        <img class="group-icon25" alt="" src="{{ asset('assets/group2.svg') }}" />
+
+                        <div class="gi-lin-h-container1">
+
+                            <span class="span2">Gửi liên hệ
+                        </div>
                     </div>
-                    <div class="a-ch-wrapper">
-                        <div class="a-ch">Địa chỉ</div>
-                    </div>
-                </div>
-            </div>
+                </button>
+            </form>
             <div class="lorem-ipsum-dolor5">
-               {{$info->text10}}
+                {{ $info->text10 }}
             </div>
             <div class="a-ch1">
                 <img class="group-icon26" alt="" src="{{ asset('assets/group15.svg') }}" />
@@ -56,7 +83,7 @@
                 <div class="a-ch-parent">
                     <div class="a-ch2">Địa chỉ:</div>
                     <div class="u-c-phng">
-                        {{$info->address}}
+                        {{ $info->address }}
                     </div>
                 </div>
             </div>
@@ -65,7 +92,7 @@
 
                 <div class="email-parent">
                     <div class="email3">Email:</div>
-                    <div class="investigateyour-sitecom">{{$info->email}}</div>
+                    <div class="investigateyour-sitecom">{{ $info->email }}</div>
                 </div>
                 <img class="mail-inbox-app-1-icon" alt="" src="{{ asset('assets/mailinboxapp-1.svg') }}" />
             </div>
@@ -77,7 +104,7 @@
 
                     <div class="in-thoi-parent">
                         <div class="in-thoi3">Điện thoại</div>
-                        <div class="investigateyour-sitecom">{{$info->phone}}</div>
+                        <div class="investigateyour-sitecom">{{ $info->phone }}</div>
                     </div>
                 </div>
             </div>
@@ -102,7 +129,7 @@
                 <div class="group-parent11">
                     <img class="group-icon29" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-                    <b class="sample-text15">{{$info->phonenav}}</b>
+                    <b class="sample-text15">{{ $info->phonenav }}</b>
                 </div>
             </div>
             <img class="little-little-logo-ngang-15" alt=""
