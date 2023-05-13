@@ -41,6 +41,7 @@ class EventController extends Controller
         $data = $request->all();
         $event = Event::find($data['id']);
         $event->status = $data['trangthai_val'];
+          $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
         $event->save();
     }
     /**

@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Event;
 use App\Models\Info;
+use App\Models\Package;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,9 +24,11 @@ class AppServiceProvider extends ServiceProvider
     {
          $info=Info::find(1);
         $event_total=Event::all()->count();
+          $package_total=Package::all()->count();
         View::share([
              'info' =>$info ,
-              'event_total'=> $event_total
+              'event_total'=> $event_total,
+              'package_total'=> $package_total
            ]);
     }
 }

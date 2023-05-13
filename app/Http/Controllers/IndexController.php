@@ -1,16 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Info;
+use App\Models\Ticket;
+use App\Models\Package;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
     public function home()
     {
-        return view('pages.home');
+        $packages = DB::table('packages')->select('name_package')->get();
+        return view('pages.home', ['packages' => $packages]);
     }
 
     public function event()

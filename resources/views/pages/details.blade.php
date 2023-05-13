@@ -28,7 +28,38 @@
                              <div class="div35">{{ $detail->start_date }} - {{ $detail->end_date }}</div>
                          </div>
                          <div class="m-sen-park">{{ $detail->title_order }}</div>
-                         <b class="vn">{{ $detail->price }}</b>
+                         <b class="vn">{{ number_format($detail->price, 0, ',', '.') }} VNĐ</b>
+
+
+                         <div class="p-t-33" style="margin-top: 96px">
+                             <div class="flex-w flex-r-m p-b-10">
+                                 <div class="size-204 flex-w flex-m respon6-next">
+                                     <form action="/add-cart" method="post">
+                                         @if ($detail->price !== null)
+                                             <div class="wrap-num-product flex-w m-r-20 m-tb-10">
+                                                 <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                     <i class="fs-16 zmdi zmdi-minus"></i>
+                                                 </div>
+
+                                                 <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                                     name="num_product" value="1">
+
+                                                 <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                     <i class="fs-16 zmdi zmdi-plus"></i>
+                                                 </div>
+                                             </div>
+
+
+                                             <button type="submit" class="btn-xem-chi-tit ">
+                                                 Add to cart
+                                             </button>
+                                             <input type="hidden" name="product_id" value="{{ $detail->id }}">
+                                         @endif
+                                         @csrf
+                                     </form>
+                                 </div>
+                             </div>
+                         </div>
                      </div>
                  </div>
                  <div class="frame-parent4">
@@ -56,6 +87,8 @@
                  </div>
              </div>
          </div>
+
+
          <img class="frame-icon6" alt="" src="{{ asset('assets/frame5.svg') }}" />
 
          <img class="frame-icon7" alt="" src="{{ asset('assets/frame6.svg') }}" />

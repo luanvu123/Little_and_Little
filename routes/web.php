@@ -6,6 +6,12 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\PackageController;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use App\Http\Controllers\TicketBookingController;
+use App\Models\Package;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +27,7 @@ Route::get('/', [IndexController::class, 'home'])->name('homepage');
 Route::get('/su-kien', [IndexController::class, 'event'])->name('event');
 Route::get('/chi-tiet-su-kien/{slug}', [IndexController::class, 'detail'])->name('detail');
 Route::get('/lien-he', [IndexController::class, 'about'])->name('about');
-Route::get('/thanh-toan', [IndexController::class, 'payment'])->name('payment');
+// Route::get('/thanh-toan', [IndexController::class, 'payment'])->name('payment');
 Route::get('/thanh-toan-thanh-cong', [IndexController::class, 'success'])->name('success');
 
 Auth::routes();
@@ -31,6 +37,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //admin routes
 Route::resource('event', EventController::class);
 Route::resource('info', InfoController::class);
+Route::resource('package',PackageController ::class);
 
 
 
@@ -48,3 +55,14 @@ Route::post('/delete-image2-event-ajax', [EventController::class, 'delete_image2
 
 
 Route::get('/trangthai-choose', [EventController::class, 'trangthai_choose'])->name('trangthai-choose');
+Route::get('/goi-choose', [PackageController::class, 'goi_choose'])->name('goi-choose');
+
+Route::post('add-cart', [App\Http\Controllers\CartController::class, 'index']);
+Route::get('carts', [App\Http\Controllers\CartController::class, 'show']);
+// Route::post('update-cart', [App\Http\Controllers\CartController::class, 'update']);
+// Route::get('carts/delete/{id}', [App\Http\Controllers\CartController::class, 'remove']);
+// Route::post('carts', [App\Http\Controllers\CartController::class, 'addCart']);
+
+Route::post('/submitBookingForm', [TicketBookingController::class, 'submit_Booking_Form'])->name('submitBookingForm');
+Route::get('/thanh-toan', [TicketBookingController::class, 'showBookingForm'])->name('payment');
+

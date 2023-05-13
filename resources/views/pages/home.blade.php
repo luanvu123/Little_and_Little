@@ -18,8 +18,8 @@
 
             <img class="converted-05-1-icon" alt="" src="{{ asset('assets/18451-converted05-1@2x.png') }}" />
 
-            <div class="m-sen">{{$info->text1}}</div>
-            <div class="park">{{$info->text2}}</div>
+            <div class="m-sen">{{ $info->text1 }}</div>
+            <div class="park">{{ $info->text2 }}</div>
             <div class="frame1">
                 <img class="group-icon" alt="" src="{{ asset('assets/group.svg') }}" />
 
@@ -27,67 +27,81 @@
 
                 <img class="vector-icon" alt="" src="{{ asset('assets/vector.svg') }}" />
 
-                <div class="frame-group">
-                    <div class="gi-gia-nh-wrapper">
-                        <div class="gi-gia-nh">Gói gia đình</div>
-                    </div>
-                    <div class="ngy-s-dng-wrapper">
-                        <div class="gi-gia-nh">Ngày sử dụng</div>
-                    </div>
-                    <div class="h-v-tn-wrapper">
-                        <div class="h-v-tn">Họ và tên</div>
-                    </div>
-                    <div class="s-in-thoi-wrapper">
-                        <div class="h-v-tn">Số điện thoại</div>
-                    </div>
-                    <div class="a-ch-email-wrapper">
-                        <div class="h-v-tn">Địa chỉ email</div>
-                    </div>
-                    <img class="frame-icon" alt="" src="{{ asset('assets/frame.svg') }}" />
 
-                    <img class="frame-icon1" alt="" src="{{ asset('assets/frame1.svg') }}" id="frame1" />
 
-                    <div class="s-lng-v-wrapper">
-                        <div class="h-v-tn">Số lượng vé</div>
+                <form method="post" action="{{ route('submitBookingForm') }}">
+                    <div class="frame-group">
+                        @csrf
+                        <select class="gi-gia-nh-wrapper" name="package" id="package" required>
+                            <div class="gi-gia-nh">
+                                @foreach ($packages as $package)
+                                    <option value="{{ $package->name_package }}">{{ $package->name_package }}</option>
+                                @endforeach
+                            </div>
+                        </select>
+                        <img class="frame-icon" alt="" src="{{ asset('assets/frame.svg') }}" />
+                        <input class="ngy-s-dng-wrapper" type="date" name="date" id="date" required
+                            placeholder="yyyy-mm-dd" min="{{ date('Y-m-d') }}">
+                        <input class="h-v-tn-wrapper" type="text" name="fullname" id="fullname" required
+                            placeholder="Họ tên">
+                        <input class="s-in-thoi-wrapper" type="tel" name="phone" id="phone" pattern="[0-9]{10,11}"
+                            required placeholder="Số điện thoại">
+                        <input class="a-ch-email-wrapper" type="email" name="email" id="email" required
+                            placeholder="Email">
+                        <img class="frame-icon1" alt="" src="{{ asset('assets/frame1.svg') }}" id="frame1" />
+                        <input class="s-lng-v-wrapper" type="number" name="number" id="number" min="1"
+                            max="10" required placeholder="Số lượng vé">
                     </div>
-                </div>
-                <div class="frame2">
-                    <img class="group-icon2" alt="" src="{{ asset('assets/group2.svg') }}" id="group2" />
+                    <button type="submit" id="book-ticket">
+                        <div class="frame2" id="group2">
+                            <img class="group-icon2" alt="" src="{{ asset('assets/group2.svg') }}" />
+                            <div class="t-v">Đặt vé</div>
+                        </div>
+                    </button>
+                </form>
 
-                    <div class="t-v">Đặt vé</div>
-                </div>
+
+
+
+
+
+
+
+
+
+
                 <div class="lorem-ipsum-dolor-container">
                     <p class="lorem-ipsum-dolor">
-                       {{$info->text3}}
+                        {{ $info->text3 }}
                     </p>
                     <p class="lorem-ipsum-dolor">
-                          {{$info->text4}}
+                        {{ $info->text4 }}
                     </p>
                     <p class="lorem-ipsum-dolor">
-                        {{$info->text5}}
+                        {{ $info->text5 }}
                     </p>
                 </div>
                 <div class="frame-container">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame2.svg') }}" />
 
-                    <b class="lorem-ipsum-dolor1"> {{$info->text6}}
+                    <b class="lorem-ipsum-dolor1"> {{ $info->text6 }}
                     </b>
                 </div>
                 <div class="frame-div">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame3.svg') }}" />
 
-                    <b class="lorem-ipsum-dolor1"> {{$info->text7}}
+                    <b class="lorem-ipsum-dolor1"> {{ $info->text7 }}
                     </b>
                 </div>
                 <div class="frame-parent1">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame3.svg') }}" />
 
-                    <b class="lorem-ipsum-dolor1"> {{$info->text8}}
+                    <b class="lorem-ipsum-dolor1"> {{ $info->text8 }}
                     </b>
                 </div>
                 <div class="frame-parent2">
                     <img class="frame-icon2" alt="" src="{{ asset('assets/frame4.svg') }}" />
-                    <b class="lorem-ipsum-dolor1"> {{$info->text9}}
+                    <b class="lorem-ipsum-dolor1"> {{ $info->text9 }}
                     </b>
                 </div>
 
@@ -120,7 +134,7 @@
                 <div class="group-group">
                     <img class="group-icon4" alt="" src="{{ asset('assets/group4.svg') }}" />
 
-                    <b class="sample-text">{{$info->phonenav}}</b>
+                    <b class="sample-text">{{ $info->phonenav }}</b>
                 </div>
             </div>
             <img class="little-little-logo-ngang-1" alt=""
@@ -128,81 +142,12 @@
         </div>
     </div>
 
-    <div id="calendarContainer" class="popup-overlay" style="display: none">
-        <div class="calendar">
-            <div class="month-selector">
-                <div class="arrows">
-                    <img class="previous-icon" alt="" src="{{ asset('assets/previous.svg') }}" />
 
-                    <b class="thng-5-2021">Tháng 5, 2021</b>
-                    <img class="previous-icon" alt="" src="{{ asset('assets/next.svg') }}" />
-                </div>
-            </div>
-            <div class="calendar-events">
-                <div class="weekdays">
-                    <b class="cn">CN</b>
-                    <b class="t2">T2</b>
-                    <b class="t3">T3</b>
-                    <b class="t4">T4</b>
-                    <b class="t5">T5</b>
-                    <b class="t6">T6</b>
-                    <b class="t7">T7</b>
-                </div>
-                <div class="week-01">
-                    <div class="div">1</div>
-                    <div class="div1">2</div>
-                    <div class="div2">3</div>
-                    <div class="div3">1</div>
-                    <div class="div4">2</div>
-                    <div class="div5">3</div>
-                    <div class="div6">4</div>
-                </div>
-                <div class="week-02">
-                    <div class="div7">5</div>
-                    <div class="div8">6</div>
-                    <div class="div9">7</div>
-                    <img class="current-day-icon" alt="" src="{{ asset('assets/current-day.svg') }}" />
-
-                    <div class="div10">8</div>
-                    <div class="div11">9</div>
-                    <div class="div12">10</div>
-                    <div class="div13">11</div>
-                </div>
-                <div class="week-03">
-                    <div class="div3">12</div>
-                    <div class="div15">13</div>
-                    <div class="div16">14</div>
-                    <div class="div17">15</div>
-                    <div class="div18">16</div>
-                    <div class="div19">17</div>
-                    <div class="div20">18</div>
-                </div>
-                <div class="week-04">
-                    <div class="div3">19</div>
-                    <div class="div22">20</div>
-                    <div class="div23">21</div>
-                    <div class="div24">22</div>
-                    <div class="div18">23</div>
-                    <div class="div26">24</div>
-                    <div class="div20">25</div>
-                </div>
-                <div class="week-05">
-                    <div class="div3">26</div>
-                    <div class="div15">27</div>
-                    <div class="div30">28</div>
-                    <div class="div17">29</div>
-                    <div class="div32">30</div>
-                    <div class="div33">31</div>
-                    <div class="div34">30</div>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
         var frame1 = document.getElementById("frame1");
         if (frame1) {
             frame1.addEventListener("click", function() {
-                var popup = document.getElementById("calendarContainer");
+                var popup = document.getElementById("ngy-s-dng-wrappe");
                 if (!popup) return;
                 var popupStyle = popup.style;
                 if (popupStyle) {
@@ -226,10 +171,21 @@
         }
     </script>
     <script>
-        var group2 = document.getElementById("group2");
-        if (group2) {
-            group2.addEventListener("click", function(e) {
-                window.location.href = "{{route('payment')}}";
+        var bookTicket = document.getElementById("book-ticket");
+        if (bookTicket) {
+            bookTicket.addEventListener("click", function(e) {
+                if (!document.getElementById("package").value ||
+                    !document.getElementById("date").value ||
+                    !document.getElementById("fullname").value ||
+                    !document.getElementById("phone").value ||
+                    !document.getElementById("email").value ||
+                    !document.getElementById("number").value
+                ) {
+                    e.preventDefault(); // Ngăn chặn sự kiện click mặc định
+                    alert("Vui lòng nhập đầy đủ thông tin!");
+                } else {
+                    window.location.href = "{{ route('payment') }}";
+                }
             });
         }
     </script>

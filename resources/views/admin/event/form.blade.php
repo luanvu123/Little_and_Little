@@ -74,7 +74,7 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('price', 'Giá', []) !!}
-                            {!! Form::text('price', isset($event) ? $event->price : '', [
+                            {!! Form::number('price', isset($event) ? $event->price : '', [
                                 'class' => 'form-control',
                                 'placeholder' => '...',
                                 'required' => 'required',
@@ -139,5 +139,5 @@
             </div>
         </div>
     </div>
-    
+
 @endsection

@@ -44,7 +44,7 @@
                         </div>
                            <div class="form-group">
                             {!! Form::label('description', 'Mô tả Website', []) !!}
-                            {!! Form::textarea('text4', isset($info) ? $info->text4 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description','required'=>'required']) !!}
+                            {!! Form::textarea('text4', isset($info) ? $info->text4 : '', ['style'=>'resize:none', 'class'=>'form-control','placeholder'=>'...','id'=>'description']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('description', 'Mô tả Website', []) !!}
