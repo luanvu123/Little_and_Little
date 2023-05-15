@@ -29,7 +29,7 @@ Route::get('/su-kien', [IndexController::class, 'event'])->name('event');
 Route::get('/chi-tiet-su-kien/{slug}', [IndexController::class, 'detail'])->name('detail');
 Route::get('/lien-he', [IndexController::class, 'about'])->name('about');
 // Route::get('/thanh-toan', [IndexController::class, 'payment'])->name('payment');
-Route::get('/thanh-toan-thanh-cong', [IndexController::class, 'success'])->name('success');
+// Route::get('/thanh-toan-thanh-cong', [IndexController::class, 'success'])->name('success');
 
 Auth::routes();
 
@@ -39,7 +39,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('event', EventController::class);
 Route::resource('info', InfoController::class);
 Route::resource('package',PackageController ::class);
-
+Route::resource('about',ContactController ::class);
 
 
 
@@ -57,11 +57,18 @@ Route::post('/delete-image2-event-ajax', [EventController::class, 'delete_image2
 
 Route::get('/trangthai-choose', [EventController::class, 'trangthai_choose'])->name('trangthai-choose');
 Route::get('/goi-choose', [PackageController::class, 'goi_choose'])->name('goi-choose');
+Route::get('/about-choose', [ContactController::class, 'about_choose'])->name('about-choose');
 
 Route::post('/submitBookingForm', [TicketBookingController::class, 'submit_Booking_Form'])->name('submitBookingForm');
 Route::get('/thanh-toan', [TicketBookingController::class, 'showBookingForm'])->name('payment');
 Route::post('/submitForm', [TicketBookingController::class, 'submit_Form'])->name('submitForm');
+Route::post('/charge', [TicketBookingController::class, 'charge'])->name('charge');
+Route::post('/charge-momo', [TicketBookingController::class, 'charge_momo'])->name('charge-momo');
 
 
 Route::get('/contact', [ContactController::class, 'showContactForm']);
 Route::post('/contact', [ContactController::class, 'submitContactForm']);
+
+
+Route::post('/charge-momo', [TicketBookingController::class, 'charge_momo'])->name('charge-momo');
+Route::get('/thanh-toan-thanh-cong', [TicketBookingController::class, 'result'])->name('success');

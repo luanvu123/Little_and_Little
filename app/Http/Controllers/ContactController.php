@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-use App\Mail\ContactMail;
-use Illuminate\Support\Facades\Mail;
+
 class ContactController extends Controller
 {
+      public function __construct()
+    {
+        $this->middleware('auth');
+    }
      public function showContactForm()
     {
         return view('contact');
@@ -30,10 +33,7 @@ class ContactController extends Controller
         $contact->address_contact = $request->input('address_contact');
         $contact->message_contact = $request->input('message_contact');
         $contact->save();
-
-        Mail::to('your-email@example.com')->send(new ContactMail($contact));
-
-        return redirect('/contact')->with('success', 'Thank you for your message. We will get back to you soon.');
+         return redirect()->route('about');
     }
     /**
      * Display a listing of the resource.
@@ -48,7 +48,8 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+          $list = Contact::orderBy('id', 'DESC')->get();
+        return view('admin.about.form', compact('list'));
     }
 
     /**
@@ -88,6 +89,16 @@ class ContactController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+         Contact::find($id)->delete();
+        toastr()->info('Thành công','Xóa liên hệ thành công');
+        return redirect()->back();
+    }
+     public function about_choose(Request $request)
+    {
+        $data = $request->all();
+        $contact = Contact::find($data['id']);
+        $contact->status = $data['trangthai_val'];
+        $contact->save();
     }
 }

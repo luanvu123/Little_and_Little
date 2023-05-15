@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class PackageController extends Controller
 {
 
-     public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -48,7 +48,7 @@ class PackageController extends Controller
         $package->save();
 
 
-         toastr()->success('Thành công','Thêm gói thành công');
+        toastr()->success('Thành công', 'Thêm gói thành công');
         return redirect()->back();
     }
 
@@ -65,9 +65,9 @@ class PackageController extends Controller
      */
     public function edit(string $id)
     {
-         $package =Package::find($id);
-        $list = Package::orderBy('id','ASC')->get();
-        return view('admin.package.form', compact('list','package'));
+        $package = Package::find($id);
+        $list = Package::orderBy('id', 'ASC')->get();
+        return view('admin.package.form', compact('list', 'package'));
     }
 
     /**
@@ -75,12 +75,12 @@ class PackageController extends Controller
      */
     public function update(Request $request, string $id)
     {
-          $data = $request->validate([
+        $data = $request->validate([
             'name_package' => 'required|string|max:255',
             'price_package' => 'required|numeric',
             'status' => 'nullable|string|max:255',
         ]);
-        $package =Package::find($id);
+        $package = Package::find($id);
         $package->name_package = $data['name_package'];
         $package->price_package = $data['price_package'];
 
@@ -88,7 +88,7 @@ class PackageController extends Controller
         $package->save();
 
 
-         toastr()->success('Thành công',' Cập nhật gói thành công');
+        toastr()->success('Thành công', ' Cập nhật gói thành công');
         return redirect()->back();
     }
 
@@ -97,11 +97,11 @@ class PackageController extends Controller
      */
     public function destroy(string $id)
     {
-         Package::find($id)->delete();
-        toastr()->info('Thành công','Xóa danh mục thành công');
+        Package::find($id)->delete();
+        toastr()->info('Thành công', 'Xóa danh mục thành công');
         return redirect()->back();
     }
-     public function goi_choose(Request $request)
+    public function goi_choose(Request $request)
     {
         $data = $request->all();
         $package = Package::find($data['id']);

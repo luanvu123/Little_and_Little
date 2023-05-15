@@ -45,7 +45,7 @@
   position: absolute;
   height: 10.04%;
   width: 24.21%;
-  top: 78.14%;
+  top: 80.14%;
   right: 5.59%;
   bottom: 11.82%;
   left: 70.2%;
@@ -56,6 +56,24 @@
   color: var(--w);
   font-family: var(--koni-28);
 }
+
+.frame9-2 {
+position: absolute;
+    height: 10.04%;
+    width: 24.21%;
+    top: 67.14%;
+    right: 5.59%;
+    bottom: 11.82%;
+    left: 70.2%;
+    /* box-shadow: var(--button); */
+    overflow: hidden;
+    cursor: pointer;
+    font-size: var(--font-size-11xl);
+    color: var(--w);
+    font-family: var(--koni-28);
+}
+
+
 .s-tin-thanh {
   position: relative;
   line-height: 30px;

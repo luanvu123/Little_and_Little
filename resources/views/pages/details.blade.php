@@ -50,8 +50,8 @@
                                                      <i class="fs-16 zmdi zmdi-plus"></i>
                                                  </div>
                                              </div>
-                                             <button type="submit" class="btn-xem-chi-tit ">
-                                                 Add to cart
+                                             <button type="submit" class="btn-xem-chi-tit " style="background-color: red">
+                                                 Đặt sự kiện
                                              </button>
                                              <input type="hidden" name="product_id" value="{{ $detail->id }}">
                                          @endif

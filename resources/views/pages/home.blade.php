@@ -30,8 +30,8 @@
 
 
                 <form method="post" action="{{ route('submitBookingForm') }}">
+                    @csrf
                     <div class="frame-group">
-                        @csrf
                         <select class="gi-gia-nh-wrapper" name="package" id="package" required>
                             <div class="gi-gia-nh">
                                 @foreach ($packages as $package)
@@ -52,8 +52,8 @@
                         <input class="s-lng-v-wrapper" type="number" name="number" id="number" min="1"
                             max="10" required placeholder="Số lượng vé">
                     </div>
-                    <button type="submit" id="book-ticket">
-                        <div class="frame2" id="group2">
+                    <button type="submit" id="group2">
+                        <div class="frame2">
                             <img class="group-icon2" alt="" src="{{ asset('assets/group2.svg') }}" />
                             <div class="t-v">Đặt vé</div>
                         </div>
@@ -171,7 +171,7 @@
         }
     </script>
     <script>
-        var bookTicket = document.getElementById("book-ticket");
+        var bookTicket = document.getElementById("group2");
         if (bookTicket) {
             bookTicket.addEventListener("click", function(e) {
                 if (!document.getElementById("package").value ||

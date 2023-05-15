@@ -8,48 +8,73 @@
 
                 <img class="group-icon20" alt="" src="{{ asset('assets//group13.svg') }}" />
 
-                <div class="frame9" id="frameContainer">
-                    <img class="group-icon21" alt="" src="{{ asset('assets/group2.svg') }}" />
 
-                    <div class="thanh-ton1">Thanh toán</div>
-                </div>
                 <div class="s-tin-thanh-ton">
                     <b class="s-tin-thanh">Số tiền thanh toán</b>
                     <div class="vn-wrapper">
                         <div class="nguyen-thi-ngoc">{{ number_format($totalPrice, 0, ',', '.') }} VNĐ</div>
                     </div>
                 </div>
+                <form method="post" action="{{ route('charge') }}">
+                    @csrf
 
-                <div class="s-tin-thanh-ton-parent">
-                    <div class="s-tin-thanh-ton1">
-                        <b class="s-tin-thanh">Số thẻ</b>
-                        <div class="wrapper">
-                            {{-- <div class="nguyen-thi-ngoc">{{$total_price_event}}</div> --}}
+                    {{-- <div class="s-tin-thanh-ton-parent">
+                        <div class="s-tin-thanh-ton1">
+                            <b class="s-tin-thanh">Số thẻ</b>
+                            <input type="text" class="wrapper" id="card-number" name="card-number" placeholder="..."
+                                required pattern="^[0-9]{16}$">
+
                         </div>
-                    </div>
-                    <div class="s-tin-thanh-ton1">
-                        <b class="s-tin-thanh">Họ tên chủ thẻ</b>
-                        <div class="wrapper">
-                            <div class="nguyen-thi-ngoc">NGUYEN THI NGOC TUYEN</div>
+                        <div class="s-tin-thanh-ton1">
+                            <b class="s-tin-thanh">Họ tên chủ thẻ</b>
+                            <input type="text" class="wrapper" id="cardholder-name" name="cardholder-name"
+                                placeholder="..." required>
                         </div>
-                    </div>
-                    <div class="s-tin-thanh-ton1">
-                        <b class="s-tin-thanh">Ngày hết hạn</b>
-                        <div class="frame-parent13">
-                            <div class="container">
-                                <div class="nguyen-thi-ngoc">05/2025</div>
+                        <div class="s-tin-thanh-ton1">
+                            <b class="s-tin-thanh">Ngày hết hạn</b>
+                            <div class="frame-parent13">
+                                <div class="container">
+                                    <input type="text" class="wrapper" id="card-expiry" name="card-expiry"
+                                        placeholder="MM/YY" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
+                                        title="Vui lòng nhập đúng định dạng MM/YY">
+
+                                </div>
+                                <img class="frame-icon12" alt="" src="{{ asset('assets/frame1.svg') }}"
+                                    id="frame1" />
                             </div>
-                            <img class="frame-icon12" alt="" src="{{ asset('assets/frame1.svg') }}"
-                                id="frame1" />
                         </div>
-                    </div>
-                    <div class="s-tin-thanh-ton4">
-                        <b class="s-tin-thanh">CVV/CVC</b>
-                        <div class="wrapper1">
-                            <div class="nguyen-thi-ngoc">***</div>
+                        <div class="s-tin-thanh-ton4">
+                            <b class="s-tin-thanh">CVV/CVC</b>
+                            <input type="text" class="wrapper1" id="cvv" name="cvv" placeholder="***" required>
                         </div>
-                    </div>
-                </div>
+                    </div> --}}
+
+                    <input type="hidden" name="total_vnpay" value="{{ $totalPrice }}">
+                    <button type="submit" id="pay-now-button" name="redirect">
+                        <div class="frame9">
+                            <img class="group-icon21" alt="" src="{{ asset('assets/group2.svg') }}" />
+
+                            <div class="thanh-ton1">Thanh toán</div>
+                        </div>
+                    </button>
+
+                </form>
+
+                <form method="post" action="{{ route('charge-momo') }}">
+                    @csrf
+
+
+
+                    <input type="hidden" name="total_momo" value="{{ $totalPrice }}">
+                    <button type="submit" id="pay-now-button" name="payUrl">
+                        <div class="frame9-2">
+                            <img class="group-icon21" alt="" src="{{ asset('assets/group2.svg') }}" />
+                            <div class="thanh-ton1">Momo</div>
+                        </div>
+                    </button>
+
+                </form>
+
 
 
                 <div class="thng-tin-lin-h">
@@ -80,6 +105,7 @@
                     </div>
                 </div>
 
+
                 <img class="vector-icon8" alt="" src="{{ asset('assets/vector8.svg') }}" />
             </div>
             <div class="thanh-ton2">Thanh toán</div>
@@ -107,6 +133,7 @@
                         <div class="tags12" id="tagsContainer2">
                             <b class="sample-text12">Liên hệ</b>
                         </div>
+
                     </div>
                     <div class="group-parent10">
                         <img class="group-icon24" alt="" src="{{ asset('assets/group4.svg') }}" />
@@ -119,16 +146,11 @@
             </div>
             <img class="trini-arnold-votay1-2-icon" alt=""
                 src="{{ asset('assets/trini-arnold-votay1-2@2x.png') }}" />
+
         </div>
 
-        <script>
-            var frameContainer = document.getElementById("frameContainer");
-            if (frameContainer) {
-                frameContainer.addEventListener("click", function(e) {
-                    window.location.href = "{{ route('success') }}";
-                });
-            }
 
+        <script>
             var frame1 = document.getElementById("frame1");
             if (frame1) {
                 frame1.addEventListener("click", function() {
@@ -155,4 +177,23 @@
                 });
             }
         </script>
+        {{-- <script>
+            var frameContainer = document.getElementById("pay-now-button");
+            if (frameContainer) {
+                frameContainer.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    var cardNumber = document.getElementById("card-number").value;
+                    var cardholderName = document.getElementById("cardholder-name").value;
+                    var cardExpiry = document.getElementById("card-expiry").value;
+                    var cvv = document.getElementById("cvv").value;
+
+                    if (!cardNumber || !cardholderName || !cardExpiry || !cvv) {
+                        alert("Vui lòng nhập đầy đủ thông tin.");
+                        return;
+                    }
+
+                    window.location.href = "{{ route('success') }}";
+                });
+            }
+        </script> --}}
     @endsection

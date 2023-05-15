@@ -8,9 +8,6 @@
         </div>
         <div class="frame11">
 
-
-
-
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>

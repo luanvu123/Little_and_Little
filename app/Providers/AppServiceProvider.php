@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+
+use App\Models\Contact;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Event;
@@ -25,10 +27,12 @@ class AppServiceProvider extends ServiceProvider
          $info=Info::find(1);
         $event_total=Event::all()->count();
           $package_total=Package::all()->count();
+          $about_total=Contact::all()->count();
         View::share([
              'info' =>$info ,
               'event_total'=> $event_total,
-              'package_total'=> $package_total
+              'package_total'=> $package_total,
+              'about_total'=>$about_total
            ]);
     }
 }
