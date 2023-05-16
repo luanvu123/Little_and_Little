@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Models\Ticket;
+use App\Models\Order;
 use App\Models\Package;
 use App\Models\Event;
 
@@ -38,14 +38,44 @@ class TicketBookingController extends Controller
 
     public function submit_Form(Request $request)
     {
+        $packageName = session('package');
+        $date = session('date');
+        $fullname = session('fullname');
+        $phone = session('phone');
+        $email = session('email');
+        $number = session('number');
+
+        if (!$packageName || !$date || !$fullname || !$phone || !$email || !$number) {
+            return redirect()->route('homepage')->with('error', 'Vui lòng nhập đầy đủ thông tin để đặt vé.');
+        }
         $product_id = $request->input('product_id');
         $num_product = $request->input('num_product');
         $detail = Event::find($product_id);
         $product_price = $detail->price;
         $total_price_event = $product_price * $num_product;
-        $request->session()->put('total_price_event', $total_price_event);
+
+        $total_prices = session()->get('total_prices', []);
+        $total_prices[] = $total_price_event;
+        session()->put('total_prices', $total_prices);
+        //
+        $event_id = $request->input('product_id');
+        $event_price = $detail->price;
+        $event_title = $detail->title;
+
+        $events = session()->get('events', []);
+        $events[] = [
+            'id' => $event_id,
+            'title' => $event_title,
+            'price' => $event_price,
+            'quantity' => $num_product,
+        ];
+        session()->put('events', $events);
+
+
         return redirect()->route('payment');
     }
+
+
 
 
     public function showBookingForm()
@@ -56,10 +86,6 @@ class TicketBookingController extends Controller
         $phone = session('phone');
         $email = session('email');
         $number = session('number');
-
-
-        session()->put('number', $number);
-        session()->put('date', $date);
         if (!$packageName || !$date || !$fullname || !$phone || !$email || !$number) {
             return redirect()->route('homepage')->with('error', 'Vui lòng nhập đầy đủ thông tin để đặt vé.');
         }
@@ -75,11 +101,29 @@ class TicketBookingController extends Controller
 
         $totalPrice = $package->price_package * $number;
 
-        if (session()->has('total_price_event')) {
-            $totalPrice += session('total_price_event');
+        // if (session()->has('total_prices')) {
+        //     $total_prices = session('total_prices');
+        //     if (is_array($total_prices)) {
+        //         $totalPrice += array_sum($total_prices);
+        //     }
+        // }
+        if (session()->has('events')) {
+            $events = session('events');
+            if (is_array($events)) {
+                foreach ($events as $event) {
+                    $event_price = $event['price'];
+                    $event_quantity = $event['quantity'];
+                    $totalPrice += $event_price * $event_quantity;
+                }
+            }
         }
-
-         session()->flash('total_price_event', $totalPrice);
+        session()->put('package', $packageName);
+        session()->put('date', $date);
+        session()->put('fullname', $fullname);
+        session()->put('phone', $phone);
+        session()->put('email', $email);
+        session()->put('number', $number);
+        session()->flash('total_price_event', $totalPrice);
 
         return view('pages.payment', compact('packageName', 'date', 'fullname', 'phone', 'email', 'number', 'totalPrice'));
     }
@@ -193,8 +237,6 @@ class TicketBookingController extends Controller
     public function charge_momo(Request $request)
     {
         $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-
-
         $partnerCode = 'MOMOBKUN20180529';
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
@@ -204,9 +246,6 @@ class TicketBookingController extends Controller
         $redirectUrl = "http://127.0.0.1:8000/thanh-toan-thanh-cong";
         $ipnUrl = "http://127.0.0.1:8000/thanh-toan-thanh-cong";
         $extraData = "";
-
-
-
 
         $requestId = time() . "";
         $requestType = "payWithATM";
@@ -236,33 +275,81 @@ class TicketBookingController extends Controller
         //Just a example, please check more in there
 
         return redirect()->to($jsonResult['payUrl']);
-        // header('Location: ' . $jsonResult['payUrl']);
-
     }
-    public function result()
+    // public function result()
+    // {
+    //     $number = session()->get('number');
+    //     $date = session()->get('date');
+    //     $fullname = session()->get('fullname');
+    //     $phone = session()->get('phone');
+    //     $email = session()->get('email');
+    //     $packageName = session()->get('package');
+    //     $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+    //     if (!empty($_GET)) {
+    //         $partnerCode = $_GET["partnerCode"];
+    //         $orderId = $_GET["orderId"];
+    //         $orderInfo = utf8_encode($_GET["orderInfo"]);
+    //         $amount = $_GET["amount"];
+    //         $requestId = $_GET["requestId"];
+    //         $extraData = $_GET["extraData"];
+    //         $rawHash = "partnerCode=" . $partnerCode . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&extraData=" . $extraData;
+    //         $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
+    //         echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
+    //         echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
+    //         echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
+    //     }
+    //     return view('pages.success', compact('partnerCode', 'orderId', 'orderInfo', 'requestId', 'extraData', 'amount', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
+    // }
+
+
+    public function result(Request $request)
     {
+        // Lấy thông tin từ session
         $number = session()->get('number');
         $date = session()->get('date');
+        $fullname = session()->get('fullname');
+        $phone = session()->get('phone');
+        $email = session()->get('email');
+        $packageName = session()->get('package');
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-        if (!empty($_GET)) {
-            $partnerCode = $_GET["partnerCode"];
-            $orderId = $_GET["orderId"];
-            $orderInfo = utf8_encode($_GET["orderInfo"]);
-            $amount = $_GET["amount"];
-            $requestId = $_GET["requestId"];
-            $extraData = $_GET["extraData"];
+
+        if ($request->query()) {
+            $partnerCode = $request->query('partnerCode');
+            $orderId = $request->query('orderId');
+            $orderInfo = utf8_encode($request->query('orderInfo'));
+            $amount = $request->query('amount');
+            $requestId = $request->query('requestId');
+            $extraData = $request->query('extraData');
             $rawHash = "partnerCode=" . $partnerCode . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&extraData=" . $extraData;
             $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
+
+            // Lấy thông tin về sự kiện từ session
+            $events = session()->get('events', []);
+
+            // Lưu thông tin vào cơ sở dữ liệu
+            $order = new Order();
+            $order->order_id = $orderId;
+            $order->order_info = $orderInfo;
+            $order->number = $number;
+            $order->date = $date;
+            $order->amount = $amount;
+            $order->fullname = $fullname;
+            $order->phone = $phone;
+            $order->email = $email;
+            $order->package_name = $packageName;
+            $order->event_data = json_encode($events);
+            $order->save();
+
             echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
         }
-        return view('pages.success', compact('partnerCode', 'orderId', 'orderInfo', 'requestId', 'extraData', 'amount', 'number', 'date'));
+
+        return view('pages.success', compact('partnerCode', 'orderId', 'orderInfo', 'requestId', 'extraData', 'amount', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
     }
 
     public function create()
     {
-        //
     }
 
     /**
@@ -302,6 +389,5 @@ class TicketBookingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }

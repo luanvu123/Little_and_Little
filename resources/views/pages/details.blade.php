@@ -31,7 +31,7 @@
                          <b class="vn">{{ number_format($detail->price, 0, ',', '.') }} VNĐ</b>
 
 
-                         <div class="p-t-33" style="margin-top: 96px">
+                         {{-- <div class="p-t-33" style="margin-top: 96px">
                              <div class="flex-w flex-r-m p-b-10">
                                  <div class="size-204 flex-w flex-m respon6-next">
                                      <form method="POST" action="{{ route('submitForm') }}">
@@ -54,12 +54,13 @@
                                                  Đặt sự kiện
                                              </button>
                                              <input type="hidden" name="product_id" value="{{ $detail->id }}">
+
                                          @endif
                                      </form>
 
                                  </div>
                              </div>
-                         </div>
+                         </div> --}}
                      </div>
                  </div>
                  <div class="frame-parent4">

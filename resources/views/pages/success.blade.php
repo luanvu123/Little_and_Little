@@ -34,7 +34,7 @@
                          position: absolute;
                          height: 95.42%;
                          width: 300px;
-                         top: 0;
+                         top: 25px;
                          right: 0;
                          bottom: 4.58%;
                          border-radius: var(--br-base);
@@ -94,7 +94,8 @@
                  <img class="next-btn-icon1" alt="" src="{{ asset('assets/next-btn1.svg') }}" />
 
                  <div class="s-lng-12">Số lượng: {{ $number }} vé</div>
-                 <div class="trang-13">Trang 1/3</div>
+                 <div class="trang-13">Trang 1</div>
+
              </div>
              <div class="btn-xem-chi-tit4">
                  <div class="xem-chi-tit8">Xem chi tiết</div>

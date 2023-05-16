@@ -41,7 +41,7 @@ class EventController extends Controller
         $data = $request->all();
         $event = Event::find($data['id']);
         $event->status = $data['trangthai_val'];
-          $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
+        $event->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
         $event->save();
     }
     /**
@@ -117,7 +117,7 @@ class EventController extends Controller
 
     public function update_image_event_ajax(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
         $get_image = $request->file('file');
@@ -187,7 +187,7 @@ class EventController extends Controller
             $old_image_path = public_path('uploads/event2/' . $event->image2);
             if (file_exists($old_image_path) && is_file($old_image_path)) {
                 unlink($old_image_path);
-            }
+            } 
 
             $get_name_image = $get_image2->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));

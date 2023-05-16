@@ -64,7 +64,7 @@
                             <tr>
                                 <th scope="row">{{ $key }}</th>
                                 <td>{{ $cate->name_package }}</td>
-                                <td>{{ $cate->price_package }}</td>
+                                <td>{{ number_format($cate->price_package, 0, ',', '.') }} VNĐ</td>
                                  <td>
                                         <select id="{{ $cate->id }}"class="goi_choose">
                                             @if ($cate->status == 0)

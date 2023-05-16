@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -14,6 +15,15 @@ class IndexController extends Controller
 {
     public function home()
     {
+        session()->forget('package');
+        session()->forget('date');
+        session()->forget('fullname');
+        session()->forget('phone');
+        session()->forget('email');
+        session()->forget('number');
+        session()->forget('total_price_event');
+        session()->forget('total_prices');
+         session()->forget('events');
         $packages = DB::table('packages')->select('name_package')->get();
         return view('pages.home', ['packages' => $packages]);
     }

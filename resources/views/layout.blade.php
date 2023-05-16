@@ -2,6 +2,10 @@
 <html>
 
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link rel="stylesheet" href="{{ asset('assets/css/global.css') }}" />
@@ -48,7 +52,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/home.js') }}"></script>
 
 
-  <script type="text/javascript">
+    <script type="text/javascript">
         var slider = document.querySelector('.s-kin-11');
         var prevBtn = document.querySelector('.previous-btn-icon');
         var nextBtn = document.querySelector('.next-btn-icon');

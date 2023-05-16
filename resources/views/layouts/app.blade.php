@@ -150,7 +150,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 </li>
 
 
-                                 <li class="treeview {{ $segment == 'about' ? 'active' : '' }}">
+                                <li class="treeview {{ $segment == 'about' ? 'active' : '' }}">
                                     <a href="#">
                                         <lord-icon src="https://cdn.lordicon.com/egpbfgcp.json" trigger="loop"
                                             delay="2000" style="width:20px;height:20px">
@@ -164,6 +164,25 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                 <lord-icon src="https://cdn.lordicon.com/zgogqkqu.json" trigger="loop"
                                                     delay="2000" style="width:20px;height:20px">
                                                 </lord-icon>Quản lý Cập nhật
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="treeview {{ $segment == 'order' ? 'active' : '' }}">
+                                    <a href="#">
+                                        <lord-icon src="https://cdn.lordicon.com/lpddubrl.json" trigger="loop"
+                                            delay="2000" style="width:20px;height:20px">
+                                        </lord-icon>
+                                        <span>Đơn vé</span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li>
+                                            <a href="{{ route('order.create') }}">
+                                                <lord-icon src="https://cdn.lordicon.com/zgogqkqu.json" trigger="loop"
+                                                    delay="2000" style="width:20px;height:20px">
+                                                </lord-icon>Xem danh sách
                                             </a>
                                         </li>
                                     </ul>
@@ -255,14 +274,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </a>
                     </div>
                 </div>
-                  <div class="col-md-3 widget widget1">
+                <div class="col-md-3 widget widget1">
                     <div class="r3_counter_box">
                         <a href="{{ route('about.create') }}">
-                            <i class="pull-left fa fa-comments user1 icon-rounded"></i>
+                            <i class="pull-left fa fa-comments user1 icon-rounded"style="background-color:blue"></i>
 
                             <div class="stats">
                                 <h5><strong>{{ $about_total }}</strong></h5>
                                 <span>Tin nhắn</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 widget widget1">
+                    <div class="r3_counter_box">
+                        <a href="{{ route('order.create') }}">
+                            <i class="pull-left fa fa-ticket user1 icon-rounded"
+                                style="background-color:aquamarine"></i>
+
+                            <div class="stats">
+                                <h5><strong>{{ $order_total }}</strong></h5>
+                                <span>Đơn vé</span>
                             </div>
                         </a>
                     </div>
@@ -425,7 +457,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             });
         })
     </script>
-     <script type="text/javascript">
+    <script type="text/javascript">
         $('.about_choose').change(function() {
 
             var trangthai_val = $(this).val();
@@ -509,9 +541,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     $('#success_image2').html(
                         '<span class="text-success">Thay đổi ảnh thành công</span>');
                     $('img[data-event_id="' + event_id + '"]').attr('src',
-                        '{{ asset('
-                                                                                                                                                                                                uploads / event2 ') }}/' +
-                        response);
+                        '{{ asset('uploads / event2 ') }}/' + response);
                 }
             });
         });
@@ -544,9 +574,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     $('#success_image3').html(
                         '<span class="text-success">Thay đổi ảnh thành công</span>');
                     $('img[data-event_id="' + event_id + '"]').attr('src',
-                        '{{ asset('
-                                                                                                                                                                                                uploads / event3 ') }}/' +
-                        response);
+                        '{{ asset('uploads / event3 ') }}/' + response);
                 }
             });
         });

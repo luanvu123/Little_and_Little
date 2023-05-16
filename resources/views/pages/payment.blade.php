@@ -97,6 +97,15 @@
                         <div class="nguyen-thi-ngoc">{{ $email }}</div>
                     </div>
                 </div>
+                <div class="s-lng-v1">
+                    <b class="s-tin-thanh">Số lượng vé</b>
+                    <div class="frame-parent14">
+                        <div class="wrapper2">
+                            <div class="nguyen-thi-ngoc">{{$number}}</div>
+                        </div>
+                        <div class="v">vé</div>
+                    </div>
+                </div>
 
                 <div class="ngy-s-dng5">
                     <b class="s-tin-thanh">Ngày sử dụng</b>

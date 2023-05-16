@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Session;
@@ -24,7 +25,9 @@ use App\Models\Package;
 |
 */
 
-Route::get('/', [IndexController::class, 'home'])->name('homepage');
+Route::get('/', [IndexController::class, 'home']  )->name('homepage');
+
+
 Route::get('/su-kien', [IndexController::class, 'event'])->name('event');
 Route::get('/chi-tiet-su-kien/{slug}', [IndexController::class, 'detail'])->name('detail');
 Route::get('/lien-he', [IndexController::class, 'about'])->name('about');
@@ -40,7 +43,7 @@ Route::resource('event', EventController::class);
 Route::resource('info', InfoController::class);
 Route::resource('package',PackageController ::class);
 Route::resource('about',ContactController ::class);
-
+Route::resource('order',OrderController ::class);
 
 
 

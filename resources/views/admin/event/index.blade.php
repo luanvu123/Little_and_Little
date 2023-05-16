@@ -32,7 +32,7 @@
                                     <td>{{ $cate->title_order }}</td>
                                     <td>{{ $cate->start_date }}</td>
                                     <td>{{ $cate->end_date }}</td>
-                                    <td>{{ $cate->price }}</td>
+                                    <td>{{ number_format($cate->price, 0, ',', '.') }} VNĐ</td>
                                     <td>
                                         <select id="{{ $cate->id }}"class="trangthai_choose">
                                             @if ($cate->status == 0)
