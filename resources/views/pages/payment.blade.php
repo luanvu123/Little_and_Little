@@ -17,38 +17,6 @@
                 </div>
                 <form method="post" action="{{ route('charge') }}">
                     @csrf
-
-                    {{-- <div class="s-tin-thanh-ton-parent">
-                        <div class="s-tin-thanh-ton1">
-                            <b class="s-tin-thanh">Số thẻ</b>
-                            <input type="text" class="wrapper" id="card-number" name="card-number" placeholder="..."
-                                required pattern="^[0-9]{16}$">
-
-                        </div>
-                        <div class="s-tin-thanh-ton1">
-                            <b class="s-tin-thanh">Họ tên chủ thẻ</b>
-                            <input type="text" class="wrapper" id="cardholder-name" name="cardholder-name"
-                                placeholder="..." required>
-                        </div>
-                        <div class="s-tin-thanh-ton1">
-                            <b class="s-tin-thanh">Ngày hết hạn</b>
-                            <div class="frame-parent13">
-                                <div class="container">
-                                    <input type="text" class="wrapper" id="card-expiry" name="card-expiry"
-                                        placeholder="MM/YY" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
-                                        title="Vui lòng nhập đúng định dạng MM/YY">
-
-                                </div>
-                                <img class="frame-icon12" alt="" src="{{ asset('assets/frame1.svg') }}"
-                                    id="frame1" />
-                            </div>
-                        </div>
-                        <div class="s-tin-thanh-ton4">
-                            <b class="s-tin-thanh">CVV/CVC</b>
-                            <input type="text" class="wrapper1" id="cvv" name="cvv" placeholder="***" required>
-                        </div>
-                    </div> --}}
-
                     <input type="hidden" name="total_vnpay" value="{{ $totalPrice }}">
                     <button type="submit" id="pay-now-button" name="redirect">
                         <div class="frame9">
@@ -186,23 +154,4 @@
                 });
             }
         </script>
-        {{-- <script>
-            var frameContainer = document.getElementById("pay-now-button");
-            if (frameContainer) {
-                frameContainer.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    var cardNumber = document.getElementById("card-number").value;
-                    var cardholderName = document.getElementById("cardholder-name").value;
-                    var cardExpiry = document.getElementById("card-expiry").value;
-                    var cvv = document.getElementById("cvv").value;
-
-                    if (!cardNumber || !cardholderName || !cardExpiry || !cvv) {
-                        alert("Vui lòng nhập đầy đủ thông tin.");
-                        return;
-                    }
-
-                    window.location.href = "{{ route('success') }}";
-                });
-            }
-        </script> --}}
     @endsection

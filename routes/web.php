@@ -75,3 +75,4 @@ Route::post('/contact', [ContactController::class, 'submitContactForm']);
 
 Route::post('/charge-momo', [TicketBookingController::class, 'charge_momo'])->name('charge-momo');
 Route::get('/thanh-toan-thanh-cong', [TicketBookingController::class, 'result'])->name('success');
+

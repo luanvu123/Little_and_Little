@@ -11,9 +11,11 @@
                      @for ($i = 1; $i <= $number; $i++)
                          <div class="v-11" style="left: {{ ($i - 1) * 320 }}px">
                              <img class="image-3-icon" alt="" src="{{ asset('assets/image-3@2x.png') }}" />
-                             {{-- <img class="image-3-icon" alt="" src="{{ $qrCodeImageUrl }}" /> --}}
+                             {{-- <img class="image-3-icon" src="{{ asset($order->qr_code) }}" alt="QR Code"> --}}
+                             {{-- <img class="image-3-icon" src="{{ asset('qrcodes/'.$orderId.'.png') }}" alt="QR Code"> --}}
+
                              <b class="alt20210501" name="partnerCode">{{ $orderId }}</b>
-                             < class="v-cng">VÉ CỔNG</
+                             <b class="v-cng">VÉ CỔNG</b>
                              <div class="ngy-s-dng1">Ngày sử dụng: {{ $date }}</div>
                              <b class="b3">---</b>
                              <img class="tick-1-icon" alt="" src="{{ asset('assets/tick-1.svg') }}" />
@@ -98,25 +100,22 @@
                  <div class="trang-13">Trang 1</div>
 
              </div>
-             <div class="btn-xem-chi-tit4">
-                 <div class="xem-chi-tit8">Xem chi tiết</div>
+             <div class="btn-xem-chi-tit4" onclick="downloadTickets()">
                  <div class="xem-chi-tit-btn4">
                      <img class="group-icon16" alt="" src="{{ asset('assets/group10.svg') }}" />
 
                      <div class="ti-v">
-                         <span class="ti-v-txt-container">T <span class="span">ả</span>i vé
+                         <span class="ti-v-txt-container">Tải vé
                          </span>
                      </div>
                  </div>
              </div>
              <div class="btn-xem-chi-tit5">
-                 <div class="xem-chi-tit8">Xem chi tiết</div>
                  <div class="xem-chi-tit-btn4">
                      <img class="group-icon16" alt="" src="{{ asset('assets/group11.svg') }}" />
 
                      <div class="ti-v">
-                         <span class="ti-v-txt-container">G <span class="span1">ử</span>i Email
-                         </span>
+                         <span class="ti-v-txt-container">Gửi Email</span>
                      </div>
                  </div>
              </div>
@@ -171,6 +170,108 @@
                  currentPage--;
                  ticketsContainer.style.transform = `translateX(-${currentPage * 320}px)`;
              }
+         });
+     </script>
+
+     <script>
+         document.addEventListener("DOMContentLoaded", function() {
+             var tiVElement = document.querySelector(".btn-xem-chi-tit5");
+             tiVElement.addEventListener("click", function() {
+                 window.location.href = "{{ route('about') }}";
+             });
+         });
+     </script>
+     <script>
+         document.querySelector('.btn-xem-chi-tit4').addEventListener('click', function() {
+             // Lấy danh sách các vé
+             var veElements = document.querySelectorAll('.v-1 .v-11');
+
+             // Tạo container để chứa thông tin vé
+             var container = document.createElement('div');
+
+             // CSS cho vé
+             var css = `
+            .ticket-card {
+                display: inline-block;
+                width: 200px;
+                height: 300px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                background-color: #f5f5f5;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            .ticket-card .image-3-icon {
+                width: 80px;
+                height: 80px;
+                margin: 10px auto;
+            }
+            .ticket-card .alt20210501 {
+                font-weight: bold;
+            }
+            .ticket-card .v-cng {
+                color: #555;
+            }
+            .ticket-card .ngy-s-dng1 {
+                margin-top: 10px;
+            }
+            .ticket-card .b3 {
+                margin-top: 10px;
+                color: #999;
+            }
+            .ticket-card .tick-1-icon {
+                width: 20px;
+                height: 20px;
+                margin-top: 10px;
+            }
+        `;
+
+             // Chèn CSS vào container
+             var styleElement = document.createElement('style');
+             styleElement.innerHTML = css;
+             container.appendChild(styleElement);
+
+             // Lặp qua danh sách vé và thêm thông tin vào container
+             veElements.forEach(function(veElement) {
+                 var imageSrc = veElement.querySelector('.image-3-icon').src;
+                 var orderId = veElement.querySelector('.alt20210501').textContent;
+                 var date = veElement.querySelector('.ngy-s-dng1').textContent;
+
+                 // Tạo một đối tượng vé
+                 var ve = document.createElement('div');
+                 ve.className = 'ticket-card';
+                 ve.innerHTML = `
+                <img class="image-3-icon" alt="" src="${imageSrc}" /><br>
+                <b class="alt20210501" name="partnerCode">${orderId}</b><br>
+                <b class="v-cng">VÉ CỔNG</b><br>
+                <div class="ngy-s-dng1">${date}</div><br>
+                <b class="b3">---</b><br>
+                <img class="tick-1-icon" alt="" src="{{ asset('assets/tick-1.svg') }}" /><br>
+            `;
+
+                 // Thêm vé vào container
+                 container.appendChild(ve);
+             });
+
+             // Tạo tập tin HTML từ container
+             var htmlContent = container.innerHTML;
+
+             // Tạo tập tin để tải về
+             var blob = new Blob([htmlContent], {
+                 type: 'text/html'
+             });
+             var url = URL.createObjectURL(blob);
+
+             // Tạo thẻ a để tải về tập tin
+             var link = document.createElement('a');
+             link.href = url;
+             link.download = 've.html';
+
+             // Thêm thẻ a vào body và thực hiện tải về
+             document.body.appendChild(link);
+             link.click();
+             document.body.removeChild(link);
          });
      </script>
  @endsection

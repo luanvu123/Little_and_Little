@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Package;
 use App\Models\Event;
+use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -77,7 +78,6 @@ class TicketBookingController extends Controller
 
 
 
-
     public function showBookingForm()
     {
         $packageName = session('package');
@@ -101,22 +101,17 @@ class TicketBookingController extends Controller
 
         $totalPrice = $package->price_package * $number;
 
-        // if (session()->has('total_prices')) {
-        //     $total_prices = session('total_prices');
-        //     if (is_array($total_prices)) {
-        //         $totalPrice += array_sum($total_prices);
+
+        // if (session()->has('events')) {
+        //     $events = session('events');
+        //     if (is_array($events)) {
+        //         foreach ($events as $event) {
+        //             $event_price = $event['price'];
+        //             $event_quantity = $event['quantity'];
+        //             $totalPrice += $event_price * $event_quantity;
+        //         }
         //     }
         // }
-        if (session()->has('events')) {
-            $events = session('events');
-            if (is_array($events)) {
-                foreach ($events as $event) {
-                    $event_price = $event['price'];
-                    $event_quantity = $event['quantity'];
-                    $totalPrice += $event_price * $event_quantity;
-                }
-            }
-        }
         session()->put('package', $packageName);
         session()->put('date', $date);
         session()->put('fullname', $fullname);
@@ -172,8 +167,8 @@ class TicketBookingController extends Controller
         $orderInfo = "Thanh toán qua MoMo";
         $amount = $_POST['total_momo'];
         $orderId = time() . "";
-        $redirectUrl = "http://127.0.0.1:8000/thanh-toan";
-        $ipnUrl = "http://127.0.0.1:8000/thanh-toan-thanh-cong";
+        $redirectUrl = "http://127.0.0.1:8000/thanh-toan-thanh-cong";
+        $ipnUrl = "http://127.0.0.1:8000/thanh-toan";
         $extraData = "";
 
         $requestId = time() . "";
@@ -201,7 +196,7 @@ class TicketBookingController extends Controller
         $result = $this->execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true); // decode json
 
-        //Just a example, please check more in there
+
 
         return redirect()->to($jsonResult['payUrl']);
     }
@@ -271,7 +266,20 @@ class TicketBookingController extends Controller
             echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
         }
 
-        
+        // $qrData = [
+        //     'number' => $number,
+        //     'date' => $date,
+        //     'fullname' => $fullname,
+        //     'phone' => $phone,
+        //     'email' => $email,
+        //     'package' => $packageName,
+        // ];
+        // $qrDataJson = json_encode($qrData);
+        // $qrCode = QrCode::encode($qrDataJson);
+        // $qrCodePath = 'qrcode/' . time() . '.png';
+        // Storage::disk('public')->put($qrCodePath, $qrCode->get());
+
+
 
         return view('pages.success', compact('partnerCode', 'orderId', 'orderInfo', 'requestId', 'extraData', 'amount', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
     }
@@ -279,6 +287,7 @@ class TicketBookingController extends Controller
 
     public function charge(Request $request)
     {
+
         $data = $request->all();
         $code_cart = rand(00, 9999);
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -393,29 +402,87 @@ class TicketBookingController extends Controller
         $vnp_BankCode = $inputData['vnp_BankCode']; //Ngân hàng thanh toán
         $vnp_Amount = $inputData['vnp_Amount'] / 100; // Số tiền thanh toán VNPAY phản hồi
         $orderId = $inputData['vnp_TxnRef'];
-        $Status = 0; // Là trạng thái thanh toán của giao dịch chưa có IPN lưu tại hệ thống của merchant chiều khởi tạo URL thanh toán.
+        $Status = 0;
 
 
-
-        if ($request->query()) {
-            $events = session()->get('events', []);
-
-            // Lưu thông tin vào cơ sở dữ liệu
-            $order = new Order();
-            $order->order_id = $orderId;
-            $order->order_info = $vnp_OrderInfo;
-            $order->number = $number;
-            $order->date = $date;
-            $order->amount = $vnp_Amount;
-            $order->fullname = $fullname;
-            $order->phone = $phone;
-            $order->email = $email;
-            $order->package_name = $packageName;
-            $order->event_data = json_encode($events);
-            $order->save();
+        $vnp_SecureHash = $_GET['vnp_SecureHash'];
+        $inputData = array();
+        foreach ($_GET as $key => $value) {
+            if (substr($key, 0, 4) == "vnp_") {
+                $inputData[$key] = $value;
+            }
         }
-        //Trả lại VNPAY theo định dạng JSON
-        echo json_encode($returnData);
+
+        unset($inputData['vnp_SecureHash']);
+        ksort($inputData);
+        $i = 0;
+        $hashData = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashData = $hashData . '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashData = $hashData . urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+        }
+
+        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
+        if ($secureHash == $vnp_SecureHash) {
+            if ($_GET['vnp_ResponseCode'] == '00') {
+                if ($request->query()) {
+                    $events = session()->get('events', []);
+
+                    // Lưu thông tin vào cơ sở dữ liệu
+                    $order = new Order();
+                    $order->order_id = $orderId;
+                    $order->order_info = $vnp_OrderInfo;
+                    $order->number = $number;
+                    $order->date = $date;
+                    $order->amount = $vnp_Amount;
+                    $order->fullname = $fullname;
+                    $order->phone = $phone;
+                    $order->email = $email;
+                    $order->package_name = $packageName;
+                    $order->event_data = json_encode($events);
+
+
+                //     //
+                //     // Tạo chuỗi JSON từ thông tin khách hàng
+                // $customerInfo = json_encode([
+                //     'orderId' => $orderId,
+                //     'amount' => $vnp_Amount,
+                //     'package' => $packageName,
+                //     // Thêm các thông tin khách hàng khác vào đây
+                // ]);
+
+                // // Tạo mã QR từ chuỗi JSON
+                // $qrCodePath = 'storage/qrcodes/' . $orderId . '.png'; // Đường dẫn lưu ảnh QR code
+                // QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
+
+                // // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
+                // $order->qr_code = $qrCodePath;
+                //     //
+
+
+                    $order->save();
+                }
+                echo json_encode($returnData);
+
+
+                //Tạo QR code
+
+
+
+
+
+
+                //qrCODEqrCODE
+            } else {
+                return redirect()->route('payment');
+            }
+        } else {
+            return redirect()->route('payment');
+        }
         return view('pages.success', compact('orderId', 'vnp_Amount', 'vnp_BankCode', 'vnpTranId', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
     }
     public function create()
