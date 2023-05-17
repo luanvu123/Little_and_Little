@@ -66,7 +66,7 @@ Route::post('/submitBookingForm', [TicketBookingController::class, 'submit_Booki
 Route::get('/thanh-toan', [TicketBookingController::class, 'showBookingForm'])->name('payment');
 Route::post('/submitForm', [TicketBookingController::class, 'submit_Form'])->name('submitForm');
 Route::post('/charge', [TicketBookingController::class, 'charge'])->name('charge');
-Route::post('/charge-momo', [TicketBookingController::class, 'charge_momo'])->name('charge-momo');
+Route::get('/thanh-toan-vnpay-thanh-cong', [TicketBookingController::class, 'result_vnpay'])->name('success_vnpay');
 
 
 Route::get('/contact', [ContactController::class, 'showContactForm']);

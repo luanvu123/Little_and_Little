@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Package;
 use App\Models\Event;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class TicketBookingController extends Controller
@@ -130,82 +130,8 @@ class TicketBookingController extends Controller
 
 
 
-    public function charge(Request $request)
-    {
-        $data = $request->all();
-        $code_cart = rand(00, 9999);
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/thanh-toan-thanh-cong";
-        $vnp_TmnCode = "5DK93HQO"; //Mã website tại VNPAY
-        $vnp_HashSecret = "SDFVNVGBWBGQOUQGAYAROOQHJUNRZPZA"; //Chuỗi bí mật
 
-        $vnp_TxnRef = $code_cart;
-        $vnp_OrderInfo = 'Thanh toán vé';
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $data['total_vnpay'] * 100;
-        $vnp_Locale = 'vn';
-        $vnp_BankCode = 'NCB';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        //Add Params of 2.0.1 Version
-        // $vnp_ExpireDate = $_POST['txtexpire'];
-        //Billing
 
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-            // "vnp_ExpireDate" => $vnp_ExpireDate,
-
-        );
-
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array(
-            'code' => '00',
-            'message' => 'success',
-            'data' => $vnp_Url
-        );
-        if (isset($_POST['redirect'])) {
-            header('Location: ' . $vnp_Url);
-            die();
-        } else {
-            echo json_encode($returnData);
-        }
-    }
 
 
     public function execPostRequest($url, $data)
@@ -237,13 +163,16 @@ class TicketBookingController extends Controller
     public function charge_momo(Request $request)
     {
         $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+
+
+
         $partnerCode = 'MOMOBKUN20180529';
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua MoMo";
         $amount = $_POST['total_momo'];
         $orderId = time() . "";
-        $redirectUrl = "http://127.0.0.1:8000/thanh-toan-thanh-cong";
+        $redirectUrl = "http://127.0.0.1:8000/thanh-toan";
         $ipnUrl = "http://127.0.0.1:8000/thanh-toan-thanh-cong";
         $extraData = "";
 
@@ -322,11 +251,8 @@ class TicketBookingController extends Controller
             $extraData = $request->query('extraData');
             $rawHash = "partnerCode=" . $partnerCode . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&extraData=" . $extraData;
             $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
-
-            // Lấy thông tin về sự kiện từ session
             $events = session()->get('events', []);
 
-            // Lưu thông tin vào cơ sở dữ liệu
             $order = new Order();
             $order->order_id = $orderId;
             $order->order_info = $orderInfo;
@@ -345,9 +271,153 @@ class TicketBookingController extends Controller
             echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
         }
 
+        
+
         return view('pages.success', compact('partnerCode', 'orderId', 'orderInfo', 'requestId', 'extraData', 'amount', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
     }
 
+
+    public function charge(Request $request)
+    {
+        $data = $request->all();
+        $code_cart = rand(00, 9999);
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = "http://127.0.0.1:8000/thanh-toan-vnpay-thanh-cong";
+        $vnp_TmnCode = "5DK93HQO"; //Mã website tại VNPAY
+        $vnp_HashSecret = "SDFVNVGBWBGQOUQGAYAROOQHJUNRZPZA"; //Chuỗi bí mật
+
+        $vnp_TxnRef = $code_cart; //Mã đơn hàng
+        $vnp_OrderInfo = 'Thanh toán qua vnpay';
+        $vnp_OrderType = 'billpayment';
+        $vnp_Amount = $data['total_vnpay'] * 100;
+        $vnp_Locale = 'vn';
+        $vnp_BankCode = 'NCB';
+        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+        //Add Params of 2.0.1 Version
+        // $vnp_ExpireDate = $_POST['txtexpire'];
+        //Billing
+
+        $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef
+            // "vnp_ExpireDate" => $vnp_ExpireDate,
+
+        );
+
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+        }
+
+        //var_dump($inputData);
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+        }
+        $returnData = array(
+            'code' => '00',
+            'message' => 'success',
+            'data' => $vnp_Url
+        );
+        if (isset($_POST['redirect'])) {
+            header('Location: ' . $vnp_Url);
+            die();
+        } else {
+            echo json_encode($returnData);
+        }
+    }
+
+    public function result_vnpay(Request $request)
+    {
+        $vnp_HashSecret = "SDFVNVGBWBGQOUQGAYAROOQHJUNRZPZA";
+        $number = session()->get('number');
+        $date = session()->get('date');
+        $fullname = session()->get('fullname');
+        $phone = session()->get('phone');
+        $email = session()->get('email');
+        $packageName = session()->get('package');
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+        $inputData = array();
+        $returnData = array();
+
+        foreach ($_GET as $key => $value) {
+            if (substr($key, 0, 4) == "vnp_") {
+                $inputData[$key] = $value;
+            }
+        }
+
+        $vnp_SecureHash = $inputData['vnp_SecureHash'];
+        unset($inputData['vnp_SecureHash']);
+        ksort($inputData);
+        $i = 0;
+        $hashData = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashData = $hashData . '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashData = $hashData . urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+        }
+
+        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
+        $vnp_OrderInfo = $inputData['vnp_OrderInfo'];
+        $vnpTranId = $inputData['vnp_TransactionNo']; //Mã giao dịch tại VNPAY
+        $vnp_BankCode = $inputData['vnp_BankCode']; //Ngân hàng thanh toán
+        $vnp_Amount = $inputData['vnp_Amount'] / 100; // Số tiền thanh toán VNPAY phản hồi
+        $orderId = $inputData['vnp_TxnRef'];
+        $Status = 0; // Là trạng thái thanh toán của giao dịch chưa có IPN lưu tại hệ thống của merchant chiều khởi tạo URL thanh toán.
+
+
+
+        if ($request->query()) {
+            $events = session()->get('events', []);
+
+            // Lưu thông tin vào cơ sở dữ liệu
+            $order = new Order();
+            $order->order_id = $orderId;
+            $order->order_info = $vnp_OrderInfo;
+            $order->number = $number;
+            $order->date = $date;
+            $order->amount = $vnp_Amount;
+            $order->fullname = $fullname;
+            $order->phone = $phone;
+            $order->email = $email;
+            $order->package_name = $packageName;
+            $order->event_data = json_encode($events);
+            $order->save();
+        }
+        //Trả lại VNPAY theo định dạng JSON
+        echo json_encode($returnData);
+        return view('pages.success', compact('orderId', 'vnp_Amount', 'vnp_BankCode', 'vnpTranId', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
+    }
     public function create()
     {
     }
