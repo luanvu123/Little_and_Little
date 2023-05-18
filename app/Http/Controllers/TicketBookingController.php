@@ -200,30 +200,7 @@ class TicketBookingController extends Controller
 
         return redirect()->to($jsonResult['payUrl']);
     }
-    // public function result()
-    // {
-    //     $number = session()->get('number');
-    //     $date = session()->get('date');
-    //     $fullname = session()->get('fullname');
-    //     $phone = session()->get('phone');
-    //     $email = session()->get('email');
-    //     $packageName = session()->get('package');
-    //     $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-    //     if (!empty($_GET)) {
-    //         $partnerCode = $_GET["partnerCode"];
-    //         $orderId = $_GET["orderId"];
-    //         $orderInfo = utf8_encode($_GET["orderInfo"]);
-    //         $amount = $_GET["amount"];
-    //         $requestId = $_GET["requestId"];
-    //         $extraData = $_GET["extraData"];
-    //         $rawHash = "partnerCode=" . $partnerCode . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&extraData=" . $extraData;
-    //         $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
-    //         echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
-    //         echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
-    //         echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
-    //     }
-    //     return view('pages.success', compact('partnerCode', 'orderId', 'orderInfo', 'requestId', 'extraData', 'amount', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
-    // }
+ 
 
 
     public function result(Request $request)

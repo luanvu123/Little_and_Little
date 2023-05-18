@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('package_name');
              $table->json('event_data')->default(null);
+             $table->string('qr_code');
             $table->timestamps();
         });
     }
