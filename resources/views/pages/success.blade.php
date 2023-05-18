@@ -10,9 +10,10 @@
                  <div class="v-1">
                      @for ($i = 1; $i <= $number; $i++)
                          <div class="v-11" style="left: {{ ($i - 1) * 320 }}px">
-                             <img class="image-3-icon" alt="" src="{{ asset('assets/image-3@2x.png') }}" />
-                             {{-- <img class="image-3-icon" src="{{ asset($order->qr_code) }}" alt="QR Code"> --}}
-                             {{-- <img class="image-3-icon" src="{{ asset('qrcodes/'.$orderId.'.png') }}" alt="QR Code"> --}}
+                             {{-- <img class="image-3-icon" alt="" src="{{ asset('assets/image-3@2x.png') }}" /> --}}
+                             {{-- <img src="{{ asset('qrcodes/' . $order->qr_code) }}" alt="QR Code"> --}}
+
+                             <img class="image-3-icon" src="{{ asset('qrcodes/'.$orderId.'.png') }}" alt="QR Code">
 
                              <b class="alt20210501" name="partnerCode">{{ $orderId }}</b>
                              <b class="v-cng">VÉ CỔNG</b>

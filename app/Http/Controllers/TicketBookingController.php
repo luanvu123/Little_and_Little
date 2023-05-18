@@ -259,25 +259,34 @@ class TicketBookingController extends Controller
             $order->email = $email;
             $order->package_name = $packageName;
             $order->event_data = json_encode($events);
-            $order->save();
+
+
+
+             // Tạo chuỗi JSON từ thông tin khách hàng
+                    $customerInfo = json_encode([
+                        'orderId' => $orderId,
+                        'amount' => $amount,
+                        'package' => $packageName,
+                        'fullname' => $fullname,
+                        'phone' => $phone,
+                        'email' => $email,
+                        'date' => $date,
+                    ]);
+
+                    // Tạo mã QR từ chuỗi JSON
+                    $qrCodePath = 'qrcodes/' . $orderId . '.png';
+                    QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
+
+                    // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
+                    $order->qr_code = $qrCodePath;
+                    $order->save();
 
             echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
         }
 
-        // $qrData = [
-        //     'number' => $number,
-        //     'date' => $date,
-        //     'fullname' => $fullname,
-        //     'phone' => $phone,
-        //     'email' => $email,
-        //     'package' => $packageName,
-        // ];
-        // $qrDataJson = json_encode($qrData);
-        // $qrCode = QrCode::encode($qrDataJson);
-        // $qrCodePath = 'qrcode/' . time() . '.png';
-        // Storage::disk('public')->put($qrCodePath, $qrCode->get());
+
 
 
 
@@ -446,22 +455,25 @@ class TicketBookingController extends Controller
                     $order->event_data = json_encode($events);
 
 
-                //     //
-                //     // Tạo chuỗi JSON từ thông tin khách hàng
-                // $customerInfo = json_encode([
-                //     'orderId' => $orderId,
-                //     'amount' => $vnp_Amount,
-                //     'package' => $packageName,
-                //     // Thêm các thông tin khách hàng khác vào đây
-                // ]);
+                    //
+                    // Tạo chuỗi JSON từ thông tin khách hàng
+                    $customerInfo = json_encode([
+                        'orderId' => $orderId,
+                        'amount' => $vnp_Amount,
+                        'package' => $packageName,
+                        'fullname' => $fullname,
+                        'phone' => $phone,
+                        'email' => $email,
+                        'date' => $date,
+                    ]);
 
-                // // Tạo mã QR từ chuỗi JSON
-                // $qrCodePath = 'storage/qrcodes/' . $orderId . '.png'; // Đường dẫn lưu ảnh QR code
-                // QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
+                    // Tạo mã QR từ chuỗi JSON
+                    $qrCodePath = 'qrcodes/' . $orderId . '.png'; // Đường dẫn lưu ảnh QR code
+                    QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
 
-                // // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
-                // $order->qr_code = $qrCodePath;
-                //     //
+                    // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
+                    $order->qr_code = $qrCodePath;
+                    //
 
 
                     $order->save();

@@ -12,6 +12,7 @@
                                 <th scope="col">Mã vé </th>
                                 <th scope="col">Phương thức </th>
                                 <th scope="col">Số lượng vé </th>
+                                <th scope="col">Mã qr </th>
                                 <th scope="col">Ngày sử dụng</th>
                                 <th scope="col">số tiền </th>
                                 <th scope="col">Tên </th>
@@ -30,6 +31,7 @@
                                     <td>{{ $cate->order_id }}</td>
                                     <td>{{ $cate->order_info }}</td>
                                     <td>{{ $cate->number }}</td>
+                                     <td><img src="{{ asset($cate->qr_code) }}" alt="QR Code" style="width: 70px"/></td>
                                     <td>{{ $cate->date }}</td>
                                     <td>{{ number_format($cate->amount, 0, ',', '.') }} VNĐ</td>
                                     <td>{{ $cate->fullname }}</td>

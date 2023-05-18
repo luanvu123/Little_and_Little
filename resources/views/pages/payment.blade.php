@@ -22,7 +22,7 @@
                         <div class="frame9">
                             <img class="group-icon21" alt="" src="{{ asset('assets/group2.svg') }}" />
 
-                            <div class="thanh-ton1">Thanh toán</div>
+                            <div class="thanh-ton1">VnPay</div>
                         </div>
                     </button>
 
