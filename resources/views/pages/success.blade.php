@@ -13,7 +13,7 @@
                              {{-- <img class="image-3-icon" alt="" src="{{ asset('assets/image-3@2x.png') }}" /> --}}
                              {{-- <img src="{{ asset('qrcodes/' . $order->qr_code) }}" alt="QR Code"> --}}
 
-                             <img class="image-3-icon" src="{{ asset('qrcodes/'.$orderId.'.png') }}" alt="QR Code">
+                             <img class="image-3-icon" src="{{ asset('qrcodes/' . $orderId . '.png') }}" alt="QR Code">
 
                              <b class="alt20210501" name="partnerCode">{{ $orderId }}</b>
                              <b class="v-cng">VÉ CỔNG</b>
@@ -174,14 +174,14 @@
          });
      </script>
 
-     <script>
+     {{-- <script>
          document.addEventListener("DOMContentLoaded", function() {
              var tiVElement = document.querySelector(".btn-xem-chi-tit5");
              tiVElement.addEventListener("click", function() {
                  window.location.href = "{{ route('about') }}";
              });
          });
-     </script>
+     </script> --}}
      <script>
          document.querySelector('.btn-xem-chi-tit4').addEventListener('click', function() {
              // Lấy danh sách các vé
@@ -273,6 +273,23 @@
              document.body.appendChild(link);
              link.click();
              document.body.removeChild(link);
+         });
+     </script>
+     <script>
+         document.querySelector('.btn-xem-chi-tit5').addEventListener('click', function() {
+             // Gửi yêu cầu gửi email cảm ơn đến server
+             fetch('/send-thankyou-email')
+                 .then(function(response) {
+                     if (response.ok) {
+                         alert('Email cảm ơn đã được gửi thành công!');
+                     } else {
+                         alert('Đã xảy ra lỗi khi gửi email cảm ơn.');
+                     }
+                 })
+                 .catch(function(error) {
+                     console.log(error);
+                     alert('Đã xảy ra lỗi khi gửi email cảm ơn.');
+                 });
          });
      </script>
  @endsection

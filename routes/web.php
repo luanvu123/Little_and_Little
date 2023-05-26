@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TicketBookingController;
 use App\Models\Package;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ThankYouEmail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,6 +68,8 @@ Route::get('/thanh-toan', [TicketBookingController::class, 'showBookingForm'])->
 Route::post('/submitForm', [TicketBookingController::class, 'submit_Form'])->name('submitForm');
 Route::post('/charge', [TicketBookingController::class, 'charge'])->name('charge');
 Route::get('/thanh-toan-vnpay-thanh-cong', [TicketBookingController::class, 'result_vnpay'])->name('success_vnpay');
+Route::get('/send-thankyou-email', [TicketBookingController::class, 'sendThankYouEmail']);
+
 
 
 Route::get('/contact', [ContactController::class, 'showContactForm']);

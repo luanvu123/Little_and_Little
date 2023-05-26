@@ -11,7 +11,8 @@ use App\Models\Package;
 use App\Models\Event;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ThankYouEmail;
 
 class TicketBookingController extends Controller
 {
@@ -200,7 +201,7 @@ class TicketBookingController extends Controller
 
         return redirect()->to($jsonResult['payUrl']);
     }
- 
+
 
 
     public function result(Request $request)
@@ -239,25 +240,31 @@ class TicketBookingController extends Controller
 
 
 
-             // Tạo chuỗi JSON từ thông tin khách hàng
-                    $customerInfo = json_encode([
-                        'orderId' => $orderId,
-                        'amount' => $amount,
-                        'package' => $packageName,
-                        'fullname' => $fullname,
-                        'phone' => $phone,
-                        'email' => $email,
-                        'date' => $date,
-                    ]);
+            // Tạo chuỗi JSON từ thông tin khách hàng
+            $customerInfo = json_encode([
+                'orderId' => $orderId,
+                'amount' => $amount,
+                'package' => $packageName,
+                'fullname' => $fullname,
+                'phone' => $phone,
+                'email' => $email,
+                'date' => $date,
+            ]);
 
-                    // Tạo mã QR từ chuỗi JSON
-                    $qrCodePath = 'qrcodes/' . $orderId . '.png';
-                    QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
+            // Tạo mã QR từ chuỗi JSON
+            $qrCodePath = 'qrcodes/' . $orderId . '.png';
+            QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
 
-                    // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
-                    $order->qr_code = $qrCodePath;
-                    $order->save();
 
+
+
+
+            // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
+            $order->qr_code = $qrCodePath;
+            $order->save();
+
+            // Gửi email cảm ơn
+            Mail::to($email)->send(new ThankYouEmail($orderId, $amount));
             echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
@@ -448,12 +455,18 @@ class TicketBookingController extends Controller
                     $qrCodePath = 'qrcodes/' . $orderId . '.png'; // Đường dẫn lưu ảnh QR code
                     QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
 
+
                     // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
                     $order->qr_code = $qrCodePath;
                     //
 
 
+
+
+
                     $order->save();
+                    // Gửi email cảm ơn
+                    Mail::to($email)->send(new ThankYouEmail($orderId, $vnp_Amount));
                 }
                 echo json_encode($returnData);
 
@@ -473,6 +486,19 @@ class TicketBookingController extends Controller
             return redirect()->route('payment');
         }
         return view('pages.success', compact('orderId', 'vnp_Amount', 'vnp_BankCode', 'vnpTranId', 'number', 'date', 'packageName', 'fullname', 'phone', 'email'));
+    }
+
+
+    public function sendThankYouEmail()
+    {
+        $email = session()->get('email');
+        $orderId = session()->get('orderId');
+        $amount = session()->get('amount');
+        // $amount = session()->get('vnp_Amount');
+
+        Mail::to($email)->send(new ThankYouEmail($orderId, $amount));
+
+        return response()->json(['success' => true]);
     }
     public function create()
     {
