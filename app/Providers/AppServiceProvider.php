@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+     public function boot(): void
     {
         $info = Info::find(1);
         $event_total = Event::all()->count();

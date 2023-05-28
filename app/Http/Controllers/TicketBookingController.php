@@ -263,8 +263,14 @@ class TicketBookingController extends Controller
             $order->qr_code = $qrCodePath;
             $order->save();
 
+            // Lưu thông tin vào session
+            session()->put('orderId', $orderId);
+            session()->put('amount', $amount);
+
             // Gửi email cảm ơn
-            Mail::to($email)->send(new ThankYouEmail($orderId, $amount));
+            $this->sendThankYouEmail();
+
+
             echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
             echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
@@ -458,27 +464,15 @@ class TicketBookingController extends Controller
 
                     // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
                     $order->qr_code = $qrCodePath;
-                    //
-
-
-
-
-
                     $order->save();
+                    // Lưu thông tin vào session
+                    session()->put('orderId', $orderId);
+                    session()->put('amount', $vnp_Amount);
+
                     // Gửi email cảm ơn
-                    Mail::to($email)->send(new ThankYouEmail($orderId, $vnp_Amount));
+                    $this->sendThankYouEmail();
                 }
                 echo json_encode($returnData);
-
-
-                //Tạo QR code
-
-
-
-
-
-
-                //qrCODEqrCODE
             } else {
                 return redirect()->route('payment');
             }
@@ -494,7 +488,7 @@ class TicketBookingController extends Controller
         $email = session()->get('email');
         $orderId = session()->get('orderId');
         $amount = session()->get('amount');
-        // $amount = session()->get('vnp_Amount');
+
 
         Mail::to($email)->send(new ThankYouEmail($orderId, $amount));
 

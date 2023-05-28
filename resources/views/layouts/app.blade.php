@@ -201,6 +201,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <!-- header-starts -->
             <div class="sticky-header header-section">
 
+
+
+
+
+
+
                 <div class="header-right">
                     <div class="profile_details">
                         <ul>
@@ -274,7 +280,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </a>
                     </div>
                 </div>
-                <div class="col-md-3 widget widget1">
+             <div class="col-md-3 widget widget1">
                     <div class="r3_counter_box">
                         <a href="{{ route('about.create') }}">
                             <i class="pull-left fa fa-comments user1 icon-rounded"style="background-color:blue"></i>
@@ -286,6 +292,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </a>
                     </div>
                 </div>
+
                 <div class="col-md-3 widget widget1">
                     <div class="r3_counter_box">
                         <a href="{{ route('order.create') }}">
@@ -660,6 +667,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
+
+
 
 </body>
 

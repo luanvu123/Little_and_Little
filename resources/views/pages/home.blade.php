@@ -54,10 +54,13 @@
                     </div>
                     <button type="submit" id="group2">
                         <div class="frame2">
+
                             <img class="group-icon2" alt="" src="{{ asset('assets/group2.svg') }}" />
+
                             <div class="t-v">Đặt vé</div>
                         </div>
                     </button>
+
                 </form>
 
 

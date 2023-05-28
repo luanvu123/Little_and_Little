@@ -18,13 +18,16 @@
                 <form method="post" action="{{ route('charge') }}">
                     @csrf
                     <input type="hidden" name="total_vnpay" value="{{ $totalPrice }}">
+
                     <button type="submit" id="pay-now-button" name="redirect">
                         <div class="frame9">
+
                             <img class="group-icon21" alt="" src="{{ asset('assets/group2.svg') }}" />
 
                             <div class="thanh-ton1">VnPay</div>
                         </div>
                     </button>
+
 
                 </form>
 
@@ -34,12 +37,16 @@
 
 
                     <input type="hidden" name="total_momo" value="{{ $totalPrice }}">
-                    <button type="submit" id="pay-now-button" name="payUrl">
-                        <div class="frame9-2">
+
+                     <button type="submit" id="pay-now-button" name="payUrl">
+                    <div class="frame9-2">
+
                             <img class="group-icon21" alt="" src="{{ asset('assets/group2.svg') }}" />
-                            <div class="thanh-ton1">Momo</div>
-                        </div>
-                    </button>
+
+                        <div class="thanh-ton1">Momo</div>
+                    </div>
+                      </button>
+
 
                 </form>
 
@@ -69,7 +76,7 @@
                     <b class="s-tin-thanh">Số lượng vé</b>
                     <div class="frame-parent14">
                         <div class="wrapper2">
-                            <div class="nguyen-thi-ngoc">{{$number}}</div>
+                            <div class="nguyen-thi-ngoc">{{ $number }}</div>
                         </div>
                         <div class="v">vé</div>
                     </div>

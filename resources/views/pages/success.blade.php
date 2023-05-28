@@ -10,8 +10,6 @@
                  <div class="v-1">
                      @for ($i = 1; $i <= $number; $i++)
                          <div class="v-11" style="left: {{ ($i - 1) * 320 }}px">
-                             {{-- <img class="image-3-icon" alt="" src="{{ asset('assets/image-3@2x.png') }}" /> --}}
-                             {{-- <img src="{{ asset('qrcodes/' . $order->qr_code) }}" alt="QR Code"> --}}
 
                              <img class="image-3-icon" src="{{ asset('qrcodes/' . $orderId . '.png') }}" alt="QR Code">
 
@@ -173,15 +171,6 @@
              }
          });
      </script>
-
-     {{-- <script>
-         document.addEventListener("DOMContentLoaded", function() {
-             var tiVElement = document.querySelector(".btn-xem-chi-tit5");
-             tiVElement.addEventListener("click", function() {
-                 window.location.href = "{{ route('about') }}";
-             });
-         });
-     </script> --}}
      <script>
          document.querySelector('.btn-xem-chi-tit4').addEventListener('click', function() {
              // Lấy danh sách các vé
@@ -281,14 +270,14 @@
              fetch('/send-thankyou-email')
                  .then(function(response) {
                      if (response.ok) {
-                         alert('Email cảm ơn đã được gửi thành công!');
+                         alert('Email đã được gửi thành công!');
                      } else {
-                         alert('Đã xảy ra lỗi khi gửi email cảm ơn.');
+                         alert('Đã xảy ra lỗi khi gửi email.');
                      }
                  })
                  .catch(function(error) {
                      console.log(error);
-                     alert('Đã xảy ra lỗi khi gửi email cảm ơn.');
+                     alert('Đã xảy ra lỗi khi gửi email.');
                  });
          });
      </script>
