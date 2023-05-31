@@ -9,9 +9,22 @@ class Event extends Model
 {
 
     use HasFactory;
-     public $timestamps = false;
-    //  public function event(){
-
-    // 	return $this->hasMany(Event::class)->orderBy('id','DESC');
-    // }
+    public $timestamps = false;
+    protected $fillable = [
+        'title',
+        'slug',
+        'title_order',
+        'start_date',
+        'end_date',
+        'price',
+        'status',
+        'image',
+        'image2',
+        'image3',
+        'description1',
+        'description2',
+        'description3',
+        'ngaytao',
+        'ngaycapnhat',
+    ];
 }

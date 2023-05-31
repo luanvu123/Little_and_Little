@@ -28,7 +28,7 @@ return new class extends Migration
             $table->longText('description3');
             $table->string('ngaytao');
             $table->string('ngaycapnhat');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
