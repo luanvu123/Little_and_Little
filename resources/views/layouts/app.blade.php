@@ -179,6 +179,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                         </lord-icon>
                                         <span>Đơn vé</span>
                                         <i class="fa fa-angle-left pull-right"></i>
+                                         @if ($hasNewOrders)
+                                            <span class="label label-primary pull-right">new</span>
+                                        @endif
                                     </a>
                                     <ul class="treeview-menu">
                                         <li>

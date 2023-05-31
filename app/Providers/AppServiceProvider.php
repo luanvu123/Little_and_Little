@@ -37,6 +37,12 @@ class AppServiceProvider extends ServiceProvider
         return Carbon::parse($contact->created_at)->greaterThan(Carbon::now()->subHour());
 
     });
+
+      $list_order = Order::orderBy('id', 'DESC')->get();
+    $hasNewOrders = $list_order->some(function ($order) {
+        return Carbon::parse($order->created_at)->greaterThan(Carbon::now()->subHour());
+    });
+    
         View::share([
             'info' => $info,
             'event_total' => $event_total,
@@ -45,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
             'order_total' => $order_total,
 
              'hasNewContacts' => $hasNewContacts,
+              'hasNewOrders' => $hasNewOrders,
 
         ]);
     }
