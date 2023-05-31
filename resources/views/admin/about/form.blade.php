@@ -17,6 +17,7 @@
                                 <th scope="col">Trạng thái</th>
                                 <th scope="col">Ngày tạo</th>
                                 <th scope="col">Quản lý</th>
+                                 <th scope="col">Gần đây</th>
                             </tr>
                         </thead>
                         <tbody class="order_position">
@@ -50,6 +51,12 @@
                                         {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
                                         {!! Form::close() !!}
                                     </td>
+
+                                     <td>
+                                         @if ($cate->created_at > \Carbon\Carbon::now()->subHour())
+                                            <span class="label label-primary pull-right">new</span>
+                                        @endif
+                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>

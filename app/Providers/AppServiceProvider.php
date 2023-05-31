@@ -10,6 +10,7 @@ use App\Models\Info;
 use App\Models\Package;
 use App\Models\Order;
 
+use Carbon\Carbon;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,12 +31,21 @@ class AppServiceProvider extends ServiceProvider
         $package_total = Package::all()->count();
         $about_total = Contact::all()->count();
         $order_total = Order::all()->count();
+
+          $list_contact = Contact::orderBy('id', 'DESC')->get();
+    $hasNewContacts = $list_contact->some(function ($contact) {
+        return Carbon::parse($contact->created_at)->greaterThan(Carbon::now()->subHour());
+
+    });
         View::share([
             'info' => $info,
             'event_total' => $event_total,
             'package_total' => $package_total,
             'about_total' => $about_total,
-            'order_total' => $order_total
+            'order_total' => $order_total,
+
+             'hasNewContacts' => $hasNewContacts,
+
         ]);
     }
 }
