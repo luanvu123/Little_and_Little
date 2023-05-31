@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Quản Lý Thông tin</div>
+                    <div class="card-header">Quản Lý Gói</div>
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -31,7 +31,7 @@
                             {!! Form::text('name_package', isset($package) ? $package->name_package : '', ['class'=>'form-control','placeholder'=>'...','required'=>'required']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('price_package', 'Đường dẫn', []) !!}
+                            {!! Form::label('price_package', 'Giá gói', []) !!}
                             {!! Form::number('price_package', isset($package) ? $package->price_package : '', ['class'=>'form-control','placeholder'=>'...','required'=>'required']) !!}
                         </div>
 
