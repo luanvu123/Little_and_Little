@@ -226,56 +226,59 @@ class TicketBookingController extends Controller
             $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
             $events = session()->get('events', []);
 
-            $order = new Order();
-            $order->order_id = $orderId;
-            $order->order_info = $orderInfo;
-            $order->number = $number;
-            $order->date = $date;
-            $order->amount = $amount;
-            $order->fullname = $fullname;
-            $order->phone = $phone;
-            $order->email = $email;
-            $order->package_name = $packageName;
-            $order->event_data = json_encode($events);
+            if (Order::where('order_id', $orderId)->exists()) {
+                return redirect()->route('payment');
+            } else {
+                $order = new Order();
+                $order->order_id = $orderId;
+                $order->order_info = $orderInfo;
+                $order->number = $number;
+                $order->date = $date;
+                $order->amount = $amount;
+                $order->fullname = $fullname;
+                $order->phone = $phone;
+                $order->email = $email;
+                $order->package_name = $packageName;
+                $order->event_data = json_encode($events);
 
 
 
-            // Tạo chuỗi JSON từ thông tin khách hàng
-            $customerInfo = json_encode([
-                'orderId' => $orderId,
-                'amount' => $amount,
-                'package' => $packageName,
-                'fullname' => $fullname,
-                'phone' => $phone,
-                'email' => $email,
-                'date' => $date,
-            ]);
+                // Tạo chuỗi JSON từ thông tin khách hàng
+                $customerInfo = json_encode([
+                    'orderId' => $orderId,
+                    'amount' => $amount,
+                    'package' => $packageName,
+                    'fullname' => $fullname,
+                    'phone' => $phone,
+                    'email' => $email,
+                    'date' => $date,
+                ]);
 
-            // Tạo mã QR từ chuỗi JSON
-            $qrCodePath = 'qrcodes/' . $orderId . '.png';
-            QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
-
-
+                // Tạo mã QR từ chuỗi JSON
+                $qrCodePath = 'qrcodes/' . $orderId . '.png';
+                QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
 
 
 
-            // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
-            $order->qr_code = $qrCodePath;
-            $order->save();
-
-            // Lưu thông tin vào session
-            session()->put('orderId', $orderId);
-            session()->put('amount', $amount);
-
-            // Gửi email cảm ơn
-            $this->sendThankYouEmail();
 
 
-            echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
-            echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
-            echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
+                // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
+                $order->qr_code = $qrCodePath;
+                $order->save();
+
+                // Lưu thông tin vào session
+                session()->put('orderId', $orderId);
+                session()->put('amount', $amount);
+
+                // Gửi email cảm ơn
+                $this->sendThankYouEmail();
+
+
+                echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
+                echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
+                echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
+            }
         }
-
 
 
 
@@ -432,45 +435,50 @@ class TicketBookingController extends Controller
                     $events = session()->get('events', []);
 
                     // Lưu thông tin vào cơ sở dữ liệu
-                    $order = new Order();
-                    $order->order_id = $orderId;
-                    $order->order_info = $vnp_OrderInfo;
-                    $order->number = $number;
-                    $order->date = $date;
-                    $order->amount = $vnp_Amount;
-                    $order->fullname = $fullname;
-                    $order->phone = $phone;
-                    $order->email = $email;
-                    $order->package_name = $packageName;
-                    $order->event_data = json_encode($events);
+
+                    if (Order::where('order_id', $orderId)->exists()) {
+                        return redirect()->route('payment');
+                    } else {
+                        $order = new Order();
+                        $order->order_id = $orderId;
+                        $order->order_info = $vnp_OrderInfo;
+                        $order->number = $number;
+                        $order->date = $date;
+                        $order->amount = $vnp_Amount;
+                        $order->fullname = $fullname;
+                        $order->phone = $phone;
+                        $order->email = $email;
+                        $order->package_name = $packageName;
+                        $order->event_data = json_encode($events);
 
 
-                    //
-                    // Tạo chuỗi JSON từ thông tin khách hàng
-                    $customerInfo = json_encode([
-                        'orderId' => $orderId,
-                        'amount' => $vnp_Amount,
-                        'package' => $packageName,
-                        'fullname' => $fullname,
-                        'phone' => $phone,
-                        'email' => $email,
-                        'date' => $date,
-                    ]);
+                        //
+                        // Tạo chuỗi JSON từ thông tin khách hàng
+                        $customerInfo = json_encode([
+                            'orderId' => $orderId,
+                            'amount' => $vnp_Amount,
+                            'package' => $packageName,
+                            'fullname' => $fullname,
+                            'phone' => $phone,
+                            'email' => $email,
+                            'date' => $date,
+                        ]);
 
-                    // Tạo mã QR từ chuỗi JSON
-                    $qrCodePath = 'qrcodes/' . $orderId . '.png'; // Đường dẫn lưu ảnh QR code
-                    QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
+                        // Tạo mã QR từ chuỗi JSON
+                        $qrCodePath = 'qrcodes/' . $orderId . '.png'; // Đường dẫn lưu ảnh QR code
+                        QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
 
 
-                    // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
-                    $order->qr_code = $qrCodePath;
-                    $order->save();
-                    // Lưu thông tin vào session
-                    session()->put('orderId', $orderId);
-                    session()->put('amount', $vnp_Amount);
+                        // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
+                        $order->qr_code = $qrCodePath;
+                        $order->save();
+                        // Lưu thông tin vào session
+                        session()->put('orderId', $orderId);
+                        session()->put('amount', $vnp_Amount);
 
-                    // Gửi email cảm ơn
-                    $this->sendThankYouEmail();
+                        // Gửi email cảm ơn
+                        $this->sendThankYouEmail();
+                    }
                 }
                 echo json_encode($returnData);
             } else {
