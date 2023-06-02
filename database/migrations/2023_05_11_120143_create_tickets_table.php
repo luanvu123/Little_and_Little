@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up()
     {
+
+          if (!Schema::hasTable('tickets')) {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('package')->nullable();
@@ -22,6 +24,7 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->timestamps();
         });
+    }
     }
 
     public function down()

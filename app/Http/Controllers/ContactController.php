@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Storage;
+use App\Models\EmailReply;
+use App\Mail\SendEmail;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-      public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
-     public function showContactForm()
+    public function showContactForm()
     {
         return view('contact');
     }
@@ -33,14 +37,14 @@ class ContactController extends Controller
         $contact->address_contact = $request->input('address_contact');
         $contact->message_contact = $request->input('message_contact');
         $contact->save();
-         return redirect()->route('about');
+        return redirect()->route('about');
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.about.email');
     }
 
     /**
@@ -48,7 +52,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-          $list = Contact::orderBy('id', 'DESC')->get();
+        $list = Contact::orderBy('id', 'DESC')->get();
         return view('admin.about.form', compact('list'));
     }
 
@@ -90,15 +94,74 @@ class ContactController extends Controller
     public function destroy(string $id)
     {
 
-         Contact::find($id)->delete();
-        toastr()->info('Thành công','Xóa liên hệ thành công');
+        Contact::find($id)->delete();
+        toastr()->info('Thành công', 'Xóa liên hệ thành công');
         return redirect()->back();
     }
-     public function about_choose(Request $request)
+    public function about_choose(Request $request)
     {
         $data = $request->all();
         $contact = Contact::find($data['id']);
         $contact->status = $data['trangthai_val'];
         $contact->save();
+    }
+
+
+
+    public function sendEmail(Request $request)
+    {
+        // Lấy dữ liệu từ request
+        $to = $request->input('emailContact');
+        $subject = $request->input('subject');
+        $message = $request->input('message');
+        $attachment = $request->file('attachment');
+
+
+        // Gửi email
+
+
+        // Lưu thông tin vào bảng emailreplies
+        $emailReply = new EmailReply();
+        $emailReply->to = $to;
+        $emailReply->subject = $subject;
+        $emailReply->message = $message;
+        $attachmentPath = NULL;
+
+        // Lưu file attachment vào thư mục public
+        if ($attachment) {
+            $attachmentPath = $attachment->store('attachments', 'public');
+            $emailReply->attachment = $attachmentPath;
+        }
+
+        $emailReply->save();
+        Mail::to($to)->send(new SendEmail($subject, $message, $attachmentPath));
+        // Redirect hoặc trả về phản hồi thành công
+        // ...
+
+        // Ví dụ:
+
+        toastr()->info('Thành công', 'Gửi email thành công');
+        return redirect()->back();
+    }
+    public function sent()
+    {
+        $list = EmailReply::orderBy('id', 'DESC')->get();
+        return view('admin.about.sent', compact('list'));
+    }
+    public function destroy_sent(string $id)
+    {
+        $emailReply = EmailReply::find($id);
+
+        // Kiểm tra xem có attachment hay không
+        if ($emailReply->attachment) {
+            // Xóa file từ thư mục storage
+            Storage::disk('public')->delete($emailReply->attachment);
+        }
+
+        // Xóa dữ liệu trong cơ sở dữ liệu
+        $emailReply->delete();
+
+        toastr()->info('Thành công', 'Xóa liên hệ thành công');
+        return redirect()->back();
     }
 }

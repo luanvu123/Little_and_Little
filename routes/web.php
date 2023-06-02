@@ -74,8 +74,19 @@ Route::get('/send-thankyou-email', [TicketBookingController::class, 'sendThankYo
 
 Route::get('/contact', [ContactController::class, 'showContactForm']);
 Route::post('/contact', [ContactController::class, 'submitContactForm']);
+Route::get('/tin-nhan-da-gui', [ContactController::class, 'sent'])->name('about.sent');
+Route::delete('sent/{id}', [ContactController::class, 'destroy_sent'])->name('about.destroy_sent');
+
+
 
 
 Route::post('/charge-momo', [TicketBookingController::class, 'charge_momo'])->name('charge-momo');
 Route::get('/thanh-toan-thanh-cong', [TicketBookingController::class, 'result'])->name('success');
 
+
+
+Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('send-email');
+Route::get('/admin/about/email', function () {
+    $to = request()->query('to');
+    return view('admin.about.email', compact('to'));
+})->name('admin.about.email');

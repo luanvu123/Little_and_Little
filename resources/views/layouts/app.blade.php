@@ -166,7 +166,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                             <a href="{{ route('about.create') }}">
                                                 <lord-icon src="https://cdn.lordicon.com/zgogqkqu.json" trigger="loop"
                                                     delay="2000" style="width:20px;height:20px">
-                                                </lord-icon>Quản lý Cập nhật
+                                                </lord-icon>Xem tin nhắn
+                                            </a>
+                                        </li>
+                                         <li>
+                                            <a href="{{ route('about.index') }}">
+                                                <lord-icon src="https://cdn.lordicon.com/hursldrn.json" trigger="loop"
+                                                    delay="2000" style="width:20px;height:20px">
+                                                </lord-icon>Gửi trực tiếp
                                             </a>
                                         </li>
                                     </ul>
@@ -179,7 +186,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                         </lord-icon>
                                         <span>Đơn vé</span>
                                         <i class="fa fa-angle-left pull-right"></i>
-                                         @if ($hasNewOrders)
+                                        @if ($hasNewOrders)
                                             <span class="label label-primary pull-right">new</span>
                                         @endif
                                     </a>
@@ -289,6 +296,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="col-md-3 widget widget1">
                     <div class="r3_counter_box">
                         <a href="{{ route('about.create') }}">
+                            @if ($hasNewContacts)
+                                <span class="label label-primary pull-right new-label">new</span>
+                            @endif
                             <i class="pull-left fa fa-comments user1 icon-rounded"style="background-color:blue"></i>
 
                             <div class="stats">
@@ -299,8 +309,30 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     </div>
                 </div>
 
+                <style>
+                    .label-primary.pull-right.new-label {
+                        animation: glow 2s infinite;
+                    }
+
+                    @keyframes glow {
+                        0% {
+                            box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
+                        }
+
+                        50% {
+                            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+                        }
+
+                        100% {
+                            box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
+                        }
+                    }
+                </style>
                 <div class="col-md-3 widget widget1">
                     <div class="r3_counter_box">
+                        @if ($hasNewOrders)
+                            <span class="label label-primary pull-right new-label">new</span>
+                        @endif
                         <a href="{{ route('order.create') }}">
                             <i class="pull-left fa fa-ticket user1 icon-rounded"
                                 style="background-color:aquamarine"></i>
@@ -673,6 +705,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
+
 
 
 

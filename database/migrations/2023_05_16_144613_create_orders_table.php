@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+          if (!Schema::hasTable('orders')) {
        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_id');
@@ -26,6 +27,7 @@ return new class extends Migration
              $table->string('qr_code');
             $table->timestamps();
         });
+    }
     }
 
     /**

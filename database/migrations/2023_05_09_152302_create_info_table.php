@@ -11,6 +11,7 @@ return new class extends Migration
      */
    public function up()
     {
+         if (!Schema::hasTable('info')) {
         Schema::create('info', function (Blueprint $table) {
             $table->id();
             $table->text('text1');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->string('phonenav');
             $table->timestamps();
         });
+    }
     }
 
     /**

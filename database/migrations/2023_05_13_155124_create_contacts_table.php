@@ -11,6 +11,7 @@ return new class extends Migration
      */
    public function up()
 {
+      if (!Schema::hasTable('contacts')) {
     Schema::create('contacts', function (Blueprint $table) {
         $table->id();
         $table->string('name_contact');
@@ -20,6 +21,7 @@ return new class extends Migration
         $table->text('message_contact');
         $table->timestamps();
     });
+}
 }
 
 

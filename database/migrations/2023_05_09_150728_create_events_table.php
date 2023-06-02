@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
+         if (!Schema::hasTable('events')) {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->string('ngaycapnhat');
             // $table->timestamps();
         });
+    }
     }
 
     public function down()
