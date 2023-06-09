@@ -225,61 +225,67 @@ class TicketBookingController extends Controller
             $rawHash = "partnerCode=" . $partnerCode . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&extraData=" . $extraData;
             $partnerSignature = hash_hmac("sha256", $rawHash, $secretKey);
             $events = session()->get('events', []);
-
-            if (Order::where('order_id', $orderId)->exists()) {
-                return redirect()->route('payment');
-            } else {
-                $order = new Order();
-                $order->order_id = $orderId;
-                $order->order_info = $orderInfo;
-                $order->number = $number;
-                $order->date = $date;
-                $order->amount = $amount;
-                $order->fullname = $fullname;
-                $order->phone = $phone;
-                $order->email = $email;
-                $order->package_name = $packageName;
-                $order->event_data = json_encode($events);
+            echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
+            echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
+            echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
 
 
-
-                // Tạo chuỗi JSON từ thông tin khách hàng
-                $customerInfo = json_encode([
-                    'orderId' => $orderId,
-                    'amount' => $amount,
-                    'package' => $packageName,
-                    'fullname' => $fullname,
-                    'phone' => $phone,
-                    'email' => $email,
-                    'date' => $date,
-                ]);
-
-                // Tạo mã QR từ chuỗi JSON
-                $qrCodePath = 'qrcodes/' . $orderId . '.png';
-                QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
+                if ($_GET["resultCode"] == '0') {
+                    if (Order::where('order_id', $orderId)->exists()) {
+                        return redirect()->route('payment');
+                    } else {
+                        $order = new Order();
+                        $order->order_id = $orderId;
+                        $order->order_info = $orderInfo;
+                        $order->number = $number;
+                        $order->date = $date;
+                        $order->amount = $amount;
+                        $order->fullname = $fullname;
+                        $order->phone = $phone;
+                        $order->email = $email;
+                        $order->package_name = $packageName;
+                        $order->event_data = json_encode($events);
 
 
 
+                        // Tạo chuỗi JSON từ thông tin khách hàng
+                        $customerInfo = json_encode([
+                            'orderId' => $orderId,
+                            'amount' => $amount,
+                            'package' => $packageName,
+                            'fullname' => $fullname,
+                            'phone' => $phone,
+                            'email' => $email,
+                            'date' => $date,
+                        ]);
+
+                        // Tạo mã QR từ chuỗi JSON
+                        $qrCodePath = 'qrcodes/' . $orderId . '.png';
+                        QrCode::format('png')->size(200)->generate($customerInfo, public_path($qrCodePath));
 
 
-                // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
-                $order->qr_code = $qrCodePath;
-                $order->save();
-
-                // Lưu thông tin vào session
-                session()->put('orderId', $orderId);
-                session()->put('amount', $amount);
-
-                // Gửi email cảm ơn
-                $this->sendThankYouEmail();
 
 
-                echo "<script>console.log('Debug huhu Objects: " . $rawHash . "' );</script>";
-                echo "<script>console.log('Debug huhu Objects: " . $secretKey . "' );</script>";
-                echo "<script>console.log('Debug huhu Objects: " . $partnerSignature . "' );</script>";
-            }
+
+                        // Lưu đường dẫn ảnh QR code vào cột qr_code trong bảng Order
+                        $order->qr_code = $qrCodePath;
+                        $order->save();
+
+                        // Lưu thông tin vào session
+                        session()->put('orderId', $orderId);
+                        session()->put('amount', $amount);
+
+                        // Gửi email cảm ơn
+                        // $this->sendThankYouEmail();
+
+
+
+                    }
+                } else {
+                    return redirect()->route('payment');
+                }
+           
         }
-
 
 
 
@@ -477,7 +483,7 @@ class TicketBookingController extends Controller
                         session()->put('amount', $vnp_Amount);
 
                         // Gửi email cảm ơn
-                        $this->sendThankYouEmail();
+                        // $this->sendThankYouEmail();
                     }
                 }
                 echo json_encode($returnData);

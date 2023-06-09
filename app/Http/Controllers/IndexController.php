@@ -24,7 +24,7 @@ class IndexController extends Controller
         session()->forget('total_price_event');
         session()->forget('total_prices');
          session()->forget('events');
-        $packages = DB::table('packages')->select('name_package')->get();
+        $packages = DB::table('packages')->select('name_package')->where('status',1)->get();
         return view('pages.home', ['packages' => $packages]);
     }
 

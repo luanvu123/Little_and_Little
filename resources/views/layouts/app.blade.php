@@ -169,7 +169,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                                 </lord-icon>Xem tin nhắn
                                             </a>
                                         </li>
-                                         <li>
+                                        <li>
                                             <a href="{{ route('about.index') }}">
                                                 <lord-icon src="https://cdn.lordicon.com/hursldrn.json" trigger="loop"
                                                     delay="2000" style="width:20px;height:20px">

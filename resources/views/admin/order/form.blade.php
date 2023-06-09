@@ -20,8 +20,8 @@
                                 <th scope="col">Email </th>
                                 <th scope="col">Tên gói </th>
                                 <th scope="col">Ngày đặt </th>
-                                 <th scope="col">Quản lý</th>
-                                 <th scope="col">Mới nhất</th>
+                                <th scope="col">Quản lý</th>
+                                <th scope="col">Mới nhất</th>
 
                             </tr>
                         </thead>
@@ -32,13 +32,15 @@
                                     <td>{{ $cate->order_id }}</td>
                                     <td>{{ $cate->order_info }}</td>
                                     <td>{{ $cate->number }}</td>
-                                     <td><img src="{{ asset($cate->qr_code) }}" alt="QR Code" style="width: 70px"/></td>
+                                    <td><img src="{{ asset($cate->qr_code) }}" alt="QR Code" style="width: 70px" /></td>
                                     <td>{{ $cate->date }}</td>
                                     <td>{{ number_format($cate->amount, 0, ',', '.') }} VNĐ</td>
                                     <td>{{ $cate->fullname }}</td>
                                     <td>{{ $cate->phone }}</td>
                                     <td>{{ $cate->email }}</td>
-                                    <td>{{ $cate->package_name }}</td>
+                                    <td>
+                                       <span class="label" style="background-color: {{ $colorMap[$cate->package_name] }}">{{ $cate->package_name }}</span>
+                                    </td>
                                     <td>{{ $cate->created_at }}</td>
                                     <td>
                                         {!! Form::open([
@@ -49,11 +51,11 @@
                                         {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
                                         {!! Form::close() !!}
                                     </td>
-                                     <td>
-                                         @if ($cate->created_at > \Carbon\Carbon::now()->subHour())
+                                    <td>
+                                        @if ($cate->created_at > \Carbon\Carbon::now()->subHour())
                                             <span class="label label-primary pull-right">new</span>
                                         @endif
-                                     </td>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -38,6 +38,7 @@ Route::get('/lien-he', [IndexController::class, 'about'])->name('about');
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/package/statistics', [HomeController::class, 'statistics'])->name('package.statistics');
 
 //admin routes
 Route::resource('event', EventController::class);
