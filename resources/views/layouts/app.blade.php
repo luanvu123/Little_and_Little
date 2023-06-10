@@ -40,8 +40,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <!--webfonts-->
     <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext"
         rel="stylesheet" />
-    <!--//webfonts-->
-
+    <!--boottrap/dist/css-->
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    </script> --}}
+    <script src="https://kit.fontawesome.com/3e3afb65d3.js" crossorigin="anonymous"></script>
     <!-- Metis Menu -->
     <script src="{{ asset('backend/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('backend/js/custom.js') }}"></script>
@@ -131,22 +136,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                     </ul>
                                 </li>
                                 <li class="treeview {{ $segment == 'package' ? 'active' : '' }}">
-                                    <a href="#">
+                                    <a href="{{ route('package.create') }}">
                                         <lord-icon src="https://cdn.lordicon.com/rhxoazjz.json" trigger="loop"
                                             delay="2000" style="width:20px;height:20px">
                                         </lord-icon>
                                         <span>Gói</span>
-                                        <i class="fa fa-angle-left pull-right"></i>
                                     </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a href="{{ route('package.create') }}">
-                                                <lord-icon src="https://cdn.lordicon.com/zgogqkqu.json" trigger="loop"
-                                                    delay="2000" style="width:20px;height:20px">
-                                                </lord-icon>Thêm gói
-                                            </a>
-                                        </li>
-                                    </ul>
+
                                 </li>
 
 
@@ -180,25 +176,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 </li>
 
                                 <li class="treeview {{ $segment == 'order' ? 'active' : '' }}">
-                                    <a href="#">
+                                    <a href="{{ route('order.create') }}">
                                         <lord-icon src="https://cdn.lordicon.com/lpddubrl.json" trigger="loop"
                                             delay="2000" style="width:20px;height:20px">
                                         </lord-icon>
                                         <span>Đơn vé</span>
-                                        <i class="fa fa-angle-left pull-right"></i>
                                         @if ($hasNewOrders)
                                             <span class="label label-primary pull-right">new</span>
                                         @endif
                                     </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a href="{{ route('order.create') }}">
-                                                <lord-icon src="https://cdn.lordicon.com/zgogqkqu.json" trigger="loop"
-                                                    delay="2000" style="width:20px;height:20px">
-                                                </lord-icon>Xem danh sách
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
 
 

@@ -4,7 +4,7 @@
     <div class="containe-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <a href="{{ route('event.create') }}" class="btn btn-primary">Thêm Sự kiện</a>
+                <a href="{{ route('event.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm Sự kiện</a>
                 <div class="table-responsive">
                     <table class="table" id="tableevent">
                         <thead>
@@ -58,7 +58,7 @@
                                             }
                                         </style>
                                         <button class="delete-image-btn" data-event_id="{{ $cate->id }}">Xóa
-                                            ảnh</button>
+                                            ảnh <i class="fa-solid fa-trash-can" style="color: #ec0a0a;"></i></button>
 
                                     </td>
 
@@ -76,7 +76,7 @@
                                             }
                                         </style>
                                         <button class="delete-image2-btn" data-event_id="{{ $cate->id }}">Xóa
-                                            ảnh</button>
+                                            ảnh <i class="fa-solid fa-trash-can" style="color: #ec0a0a;"></i></button>
                                     </td>
                                     <td>
                                         <img width="100" src="{{ asset('uploads/event3/' . $cate->image3) }}">
@@ -91,7 +91,7 @@
                                             }
                                         </style>
                                         <button class="delete-image3-btn" data-event_id="{{ $cate->id }}">Xóa
-                                            ảnh</button>
+                                            ảnh <i class="fa-solid fa-trash-can" style="color: #ec0a0a;"></i></button>
                                     </td>
                                     <td>{{ $cate->ngaytao }}</td>
                                     <td>{{ $cate->ngaycapnhat }}</td>

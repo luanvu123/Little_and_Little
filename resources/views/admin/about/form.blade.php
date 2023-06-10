@@ -53,8 +53,8 @@
                                     </td>
                                     <td>
                                         <button onclick="redirectToEmailPage('{{ $cate->email_contact }}')"
-                                            class="btn btn-primary">Gửi Email</button>
-                                            
+                                            class="btn btn-primary">Gửi Email <i class="fa-solid fa-envelope" style="color: #ffffff;"></i></button>
+
 
                                     </td>
 

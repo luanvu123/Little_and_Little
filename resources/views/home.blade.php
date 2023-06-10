@@ -23,13 +23,13 @@
                     <div class="card-header">Thống kê gói</div>
 
                     <div class="card-body">
-                        <div class="chart-container"style="width: 500px;">
+                        <div class="chart-container"style="width: 400px;">
                             <canvas id="packageChart"></canvas>
                         </div>
                         <div class="chart-type">
-                            <button id="barChartBtn" class="btn btn-primary">Hình cột</button>
-                            <button id="lineChartBtn" class="btn btn-primary">Biểu đồ đường</button>
-                            <button id="pieChartBtn" class="btn btn-primary">Hình tròn</button>
+                            <button id="barChartBtn" class="btn btn-primary">Hình cột <i class="fa-solid fa-chart-column" style="color: #ffffff;"></i></button>
+                            <button id="lineChartBtn" class="btn btn-primary">Biểu đồ đường <i class="fa-solid fa-chart-line" style="color: #ffffff;"></i></button>
+                            <button id="pieChartBtn" class="btn btn-primary">Hình tròn <i class="fa-solid fa-chart-pie" style="color: #ffffff;"></i></button>
                         </div>
                     </div>
                     <form method="POST" action="{{ route('package.statistics') }}">
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="card-body">
-                            <button type="submit" style="margin-top: -32px;" class="btn btn-primary">Chọn</button>
+                            <button type="submit" style="margin-top: -32px;" class="btn btn-primary">Chọn <i class="fa-sharp fa-solid fa-arrow-right" style="color: #ffffff;"></i></button>
                         </div>
                     </form>
 
