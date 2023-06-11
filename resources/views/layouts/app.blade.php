@@ -51,8 +51,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('backend/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('backend/js/custom.js') }}"></script>
     <link href="{{ asset('backend/css/custom.css') }}" rel="stylesheet" />
-
-
     <link href="{{ asset('backend/css/owl.carousel.css') }}" rel="stylesheet" />
     <script src="{{ asset('backend/js/owl.carousel.js') }}"></script>
     <script>
@@ -199,173 +197,204 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             <!--left-fixed -navigation-->
             <!-- header-starts -->
             <div class="sticky-header header-section">
-
-
-
-
-
-
-
+                <div class="header-left">
+                    <!--toggle button start-->
+                    <button id="showLeftPush"><i class="fa fa-bars"></i></button>
+                    <!--toggle button end-->
+                    <div class="clearfix"></div>
+                </div>
                 <div class="header-right">
-                    <div class="profile_details">
+                    {{-- <div class="profile_details">
                         <ul>
-                            <li class="dropdown profile_details_drop">
-                                <!-- Authentication Links -->
-                                @guest
-                                    @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-        @endif
-
-        @if (Route::has('register'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-            </li>
-        @endif
-    @else
-        <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('logout') }}" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }}
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </div>
-        </li>
-    @endguest
-    </li>
-    </ul>
-    </li>
-    </ul>
-    </div>
-    <div class="clearfix"></div>
-    </div>
-    <div class="clearfix"></div>
-    </div>
-    <!-- //header-ends -->
-    <!-- main content start-->
-    <div id="page-wrapper">
-        <div class="main-page">
-            <div class="col_3">
-                <div class="col-md-3 widget widget1">
-                    <div class="r3_counter_box">
-                        <a href="{{ route('event.index') }}">
-                            <i class="pull-left fa fa-file icon-rounded"></i>
-                            <div class="stats">
-                                <h5><strong>{{ $event_total }}</strong></h5>
-                                <span>Sự kiện</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3 widget widget1">
-                    <div class="r3_counter_box">
-                        <a href="{{ route('package.create') }}">
-                            <i class="pull-left fa fa-book user1 icon-rounded"></i>
-                            <div class="stats">
-                                <h5><strong>{{ $package_total }}</strong></h5>
-                                <span>Gói</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3 widget widget1">
-                    <div class="r3_counter_box">
-                        <a href="{{ route('about.create') }}">
-                            @if ($hasNewContacts)
-                                <span class="label label-primary pull-right new-label">new</span>
-                            @endif
-                            <i class="pull-left fa fa-comments user1 icon-rounded"style="background-color:blue"></i>
-
-                            <div class="stats">
-                                <h5><strong>{{ $about_total }}</strong></h5>
-                                <span>Tin nhắn</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <style>
-                    .label-primary.pull-right.new-label {
-                        animation: glow 2s infinite;
-                    }
-
-                    @keyframes glow {
-                        0% {
-                            box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
-                        }
-
-                        50% {
-                            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-                        }
-
-                        100% {
-                            box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
-                        }
-                    }
-                </style>
-                <div class="col-md-3 widget widget1">
-                    <div class="r3_counter_box">
-                        @if ($hasNewOrders)
-                            <span class="label label-primary pull-right new-label">new</span>
+                            <li class="dropdown profile_details_drop"> --}}
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
                         @endif
-                        <a href="{{ route('order.create') }}">
-                            <i class="pull-left fa fa-ticket user1 icon-rounded"
-                                style="background-color:aquamarine"></i>
 
-                            <div class="stats">
-                                <h5><strong>{{ $order_total }}</strong></h5>
-                                <span>Đơn vé</span>
-                            </div>
-                        </a>
-                    </div>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                      @else
+                        {{-- <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('logout') }}"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> --}}
+                        <div class="profile_details">
+                            <ul>
+                                <li class="dropdown profile_details_drop">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <div class="profile_img">
+                                            <span class="prfil-img"><img src="{{ asset('backend/images/2.jpg') }}"
+                                                    alt="">
+                                            </span>
+                                            <div class="user-name">
+                                                <p> {{ Auth::user()->name }}</p>
+                                                <span>Administrator</span>
+                                            </div>
+                                            <i class="fa fa-angle-down lnr"></i>
+                                            <i class="fa fa-angle-up lnr"></i>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu drp-mnu">
+                                        <li>
+                                            <a href="#"><i class="fa fa-cog"></i> Settings</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-user"></i> My Account</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-suitcase"></i> Profile</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                <i class="fa fa-sign-out"></i> Đăng xuất
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        {{-- </a>
+                        </li> --}}
+                    @endguest
+                    {{-- </div> --}}
+                    <div class="clearfix"></div>
                 </div>
 
                 <div class="clearfix"></div>
             </div>
-            <br>
+            <!-- //header-ends -->
+            <!-- main content start-->
+            <div id="page-wrapper">
+                <div class="main-page">
+                    <div class="col_3">
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                <a href="{{ route('event.index') }}">
+                                    <i class="pull-left fa fa-file icon-rounded"></i>
+                                    <div class="stats">
+                                        <h5><strong>{{ $event_total }}</strong></h5>
+                                        <span>Sự kiện</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                <a href="{{ route('package.create') }}">
+                                    <i class="pull-left fa fa-book user1 icon-rounded"></i>
+                                    <div class="stats">
+                                        <h5><strong>{{ $package_total }}</strong></h5>
+                                        <span>Gói</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                <a href="{{ route('about.create') }}">
+                                    @if ($hasNewContacts)
+                                        <span class="label label-primary pull-right new-label">new</span>
+                                    @endif
+                                    <i
+                                        class="pull-left fa fa-comments user1 icon-rounded"style="background-color:blue"></i>
 
-            <!-- for amcharts js -->
+                                    <div class="stats">
+                                        <h5><strong>{{ $about_total }}</strong></h5>
+                                        <span>Tin nhắn</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
 
-            <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-            <script src="{{ asset('backend/js/amcharts.js') }}"></script>
-            <script src="{{ asset('backend/js/serial.js') }}"></script>
-            <script src="{{ asset('backend/js/export.min.js') }}"></script>
-            <link rel="stylesheet" href="css/export.css" type="text/css" media="all" />
-            <script src="{{ asset('backend/js/light.js') }}"></script>
-            <!-- for amcharts js -->
-            <script src="{{ asset('backend/js/index1.js') }}"></script>
-            <div class="col-md-12">
-                @yield('content')
+                        <style>
+                            .label-primary.pull-right.new-label {
+                                animation: glow 2s infinite;
+                            }
+
+                            @keyframes glow {
+                                0% {
+                                    box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
+                                }
+
+                                50% {
+                                    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+                                }
+
+                                100% {
+                                    box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
+                                }
+                            }
+                        </style>
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                @if ($hasNewOrders)
+                                    <span class="label label-primary pull-right new-label">new</span>
+                                @endif
+                                <a href="{{ route('order.create') }}">
+                                    <i class="pull-left fa fa-ticket user1 icon-rounded"
+                                        style="background-color:aquamarine"></i>
+
+                                    <div class="stats">
+                                        <h5><strong>{{ $order_total }}</strong></h5>
+                                        <span>Đơn vé</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <br>
+
+                    <!-- for amcharts js -->
+
+                    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+                    <script src="{{ asset('backend/js/amcharts.js') }}"></script>
+                    <script src="{{ asset('backend/js/serial.js') }}"></script>
+                    <script src="{{ asset('backend/js/export.min.js') }}"></script>
+                    <link rel="stylesheet" href="{{ asset('backend/css/export.css') }}" type="text/css"
+                        media="all" />
+                    <script src="{{ asset('backend/js/light.js') }}"></script>
+                    <!-- for amcharts js -->
+                    <script src="{{ asset('backend/js/index1.js') }}"></script>
+                    <script src="{{ asset('backend/js/index.js') }}"></script>
+                    <script src="{{ asset('backend/js/index2.js') }}"></script>
+                    <div class="col-md-12">
+                        @yield('content')
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
 
-    <!--footer-->
-    <div class="footer">
-        <p>
-            &copy; 2018 Glance Design Dashboard. All Rights Reserved | Design by
-            <a href="#" target="_blank">w3layouts</a>
-        </p>
-    </div>
-    <!--//footer-->
-    </div>
-@else
-    @yield('content_login')
+            <!--footer-->
+            <div class="footer">
+                <p>
+                    &copy; 2018 Glance Design Dashboard. All Rights Reserved | Design by
+                    <a href="#" target="_blank">w3layouts</a>
+                </p>
+            </div>
+            <!--//footer-->
+        </div>
+    @else
+        @yield('content_login')
     @endif
     <!-- for toggle left push menu script -->
-    <script src="js/classie.js"></script>
+    <script src="{{ asset('backend/js/classie.js') }}"></script>
     <script>
         var menuLeft = document.getElementById('cbp-spmenu-s1'),
             showLeftPush = document.getElementById('showLeftPush'),
@@ -691,10 +720,16 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
             });
         });
     </script>
-
-
-
-
+    <script src="{{ asset('backend/js/utils.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/Chart.bundle.js')}}"></script>
+<script src="{{ asset('backend/js/chartinator.js')}}"></script>
+<script src="{{ asset('backend/js/Chart.bundle.js')}}"></script>
+<script src="{{ asset('backend/js/amcharts.js')}}"></script>
+<script src="{{ asset('backend/js/validator.min.js')}}"></script>
+<script src="{{ asset('backend/js/chartinator.js')}}"></script>
+<script src="{{ asset('backend/js/images/dragIconRoundBig.svg')}}"></script>
+<script src="{{ asset('backend/js/export.min.js')}}"></script>
+<script src="{{ asset('backend/js/Chart.min.js')}}"></script> --}}
 </body>
 
 </html>

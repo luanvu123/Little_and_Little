@@ -15,6 +15,8 @@ use App\Http\Controllers\TicketBookingController;
 use App\Models\Package;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ThankYouEmail;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +28,7 @@ use App\Mail\ThankYouEmail;
 |
 */
 
-Route::get('/', [IndexController::class, 'home']  )->name('homepage');
+Route::get('/', [IndexController::class, 'home'])->name('homepage');
 
 
 Route::get('/su-kien', [IndexController::class, 'event'])->name('event');
@@ -35,7 +37,7 @@ Route::get('/lien-he', [IndexController::class, 'about'])->name('about');
 // Route::get('/thanh-toan', [IndexController::class, 'payment'])->name('payment');
 // Route::get('/thanh-toan-thanh-cong', [IndexController::class, 'success'])->name('success');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/package/statistics', [HomeController::class, 'statistics'])->name('package.statistics');
@@ -43,9 +45,9 @@ Route::post('/package/statistics', [HomeController::class, 'statistics'])->name(
 //admin routes
 Route::resource('event', EventController::class);
 Route::resource('info', InfoController::class);
-Route::resource('package',PackageController ::class);
-Route::resource('about',ContactController ::class);
-Route::resource('order',OrderController ::class);
+Route::resource('package', PackageController::class);
+Route::resource('about', ContactController::class);
+Route::resource('order', OrderController::class);
 
 
 
@@ -57,7 +59,8 @@ Route::post('/update-image3-event-ajax', [EventController::class, 'update_image3
 
 
 Route::post('/delete-image-event-ajax', [EventController::class, 'delete_image_event_ajax'])->name('delete-image-event-ajax');
-Route::post('/delete-image2-event-ajax', [EventController::class, 'delete_image2_event_ajax'])->name('delete-image2-event-ajax');Route::post('/delete-image3-event-ajax', [EventController::class, 'delete_image3_event_ajax'])->name('delete-image3-event-ajax');
+Route::post('/delete-image2-event-ajax', [EventController::class, 'delete_image2_event_ajax'])->name('delete-image2-event-ajax');
+Route::post('/delete-image3-event-ajax', [EventController::class, 'delete_image3_event_ajax'])->name('delete-image3-event-ajax');
 
 
 Route::get('/trangthai-choose', [EventController::class, 'trangthai_choose'])->name('trangthai-choose');
@@ -91,3 +94,22 @@ Route::get('/admin/about/email', function () {
     $to = request()->query('to');
     return view('admin.about.email', compact('to'));
 })->name('admin.about.email');
+
+
+
+
+// Show the form to request a password reset link
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])
+    ->name('password.request');
+
+// Send password reset email
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('password.email');
+
+// Show the form to reset the password
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+
+// Update the password
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])
+    ->name('password.update');
