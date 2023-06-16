@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ThankYouEmail;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,12 +44,7 @@ Auth::routes(['verify' => true]);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/package/statistics', [HomeController::class, 'statistics'])->name('package.statistics');
 
-//admin routes
-Route::resource('event', EventController::class);
-Route::resource('info', InfoController::class);
-Route::resource('package', PackageController::class);
-Route::resource('about', ContactController::class);
-Route::resource('order', OrderController::class);
+
 
 
 
@@ -97,6 +94,17 @@ Route::get('/admin/about/email', function () {
 
 
 
+
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('event', EventController::class);
+    Route::resource('info', InfoController::class);
+    Route::resource('package', PackageController::class);
+    Route::resource('about', ContactController::class);
+    Route::resource('order', OrderController::class);
+});
 
 // Show the form to request a password reset link
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])

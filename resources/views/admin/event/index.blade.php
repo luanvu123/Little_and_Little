@@ -4,7 +4,9 @@
     <div class="containe-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
+                 @can('event-create')
                 <a href="{{ route('event.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Thêm Sự kiện</a>
+                 @endcan
                 <div class="table-responsive">
                     <table class="table" id="tableevent">
                         <thead>

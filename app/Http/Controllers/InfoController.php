@@ -12,7 +12,11 @@ class InfoController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+             $this->middleware('permission:info-list|info-create|info-edit|info-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:info-create', ['only' => ['create','store']]);
+         $this->middleware('permission:info-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:info-delete', ['only' => ['destroy']]);
     }
 
     public function index()

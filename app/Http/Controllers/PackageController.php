@@ -11,7 +11,11 @@ class PackageController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+         $this->middleware('permission:package-list|package-create|package-edit|package-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:package-create', ['only' => ['create','store']]);
+         $this->middleware('permission:package-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:package-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -19,6 +23,8 @@ class PackageController extends Controller
      */
     public function index()
     {
+          $list = Package::orderBy('id', 'ASC')->get();
+        return view('admin.package.form', compact('list'));
     }
 
     /**
@@ -26,8 +32,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        $list = Package::orderBy('id', 'ASC')->get();
-        return view('admin.package.form', compact('list'));
+
     }
 
     /**

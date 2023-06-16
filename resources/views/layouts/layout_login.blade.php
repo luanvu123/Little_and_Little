@@ -18,7 +18,7 @@
     <title>Đăng nhập</title>
     <style>
         body {
-            background: url('https://pixabay.com/get/g4abf58335100b17f0025e25128a147968be7282e12bcce7257df0c51dbb9f6121277150fbf01f04daf391ebe985cc22c.svg');
+            background: url('backend/images/laptop-3214756_1280.png');
         }
 
         /* sign in FORM */

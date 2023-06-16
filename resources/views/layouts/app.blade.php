@@ -134,7 +134,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                     </ul>
                                 </li>
                                 <li class="treeview {{ $segment == 'package' ? 'active' : '' }}">
-                                    <a href="{{ route('package.create') }}">
+                                    <a href="{{ route('package.index') }}">
                                         <lord-icon src="https://cdn.lordicon.com/rhxoazjz.json" trigger="loop"
                                             delay="2000" style="width:20px;height:20px">
                                         </lord-icon>
@@ -184,6 +184,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                         @endif
                                     </a>
                                 </li>
+                                <li class="treeview">
+                                    <a href="{{ route('users.index') }}">
+                                        <lord-icon src="https://cdn.lordicon.com/ljvjsnvh.json" trigger="loop"
+                                            delay="2000" style="width:20px;height:20px">
+                                        </lord-icon>
+                                        <span>User</span>
+                                    </a>
+                                </li>
+                                <li class="treeview">
+                                    <a href="{{ route('roles.index') }}">
+                                        <lord-icon src="https://cdn.lordicon.com/amxnacxd.json" trigger="loop"
+                                            delay="2000" style="width:20px;height:20px">
+                                        </lord-icon>
+                                        <span>Roles</span>
+                                    </a>
+                                </li>
 
 
 
@@ -220,7 +236,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
-                      @else
+                    @else
                         {{-- <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('logout') }}"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> --}}
@@ -230,12 +246,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                         aria-expanded="false">
                                         <div class="profile_img">
-                                            <span class="prfil-img"><img src="{{ asset('backend/images/2.jpg') }}"
+                                            <span class="prfil-img"><img style="width:40px;"src="{{ asset('storage/' .  Auth::user()->avatar) }}"
                                                     alt="">
                                             </span>
                                             <div class="user-name">
                                                 <p> {{ Auth::user()->name }}</p>
-                                                <span>Administrator</span>
+                                                <span>{{Auth::user()->getRoleNames()}}</span>
                                             </div>
                                             <i class="fa fa-angle-down lnr"></i>
                                             <i class="fa fa-angle-up lnr"></i>
@@ -243,15 +259,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu drp-mnu">
-                                        <li>
-                                            <a href="#"><i class="fa fa-cog"></i> Settings</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa fa-user"></i> My Account</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa fa-suitcase"></i> Profile</a>
-                                        </li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
@@ -295,7 +302,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                         </div>
                         <div class="col-md-3 widget widget1">
                             <div class="r3_counter_box">
-                                <a href="{{ route('package.create') }}">
+                                <a href="{{ route('package.index') }}">
                                     <i class="pull-left fa fa-book user1 icon-rounded"></i>
                                     <div class="stats">
                                         <h5><strong>{{ $package_total }}</strong></h5>

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
+                <div class="card" style="margin-top: 99px;">
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
@@ -70,7 +70,7 @@
                                         name="password_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
-                            <!-- Chọn giới tính -->
+                            {{-- <!-- Chọn giới tính -->
                             <div class="row mb-3">
                                 <label for="gender"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
@@ -78,8 +78,9 @@
                                 <div class="col-md-6">
                                     <select id="gender" class="form-control @error('gender') is-invalid @enderror"
                                         name="gender" required>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="male">Nam</option>
+                                        <option value="female">Nữ</option>
+                                        <option value="female">Khác</option>
                                     </select>
 
                                     @error('gender')
@@ -123,7 +124,7 @@
                                     @enderror
                                 </div>
                             </div>
-
+ --}}
 
 
                             <div class="row mb-0">

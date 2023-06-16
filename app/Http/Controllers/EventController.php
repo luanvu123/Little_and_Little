@@ -19,7 +19,11 @@ class EventController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->middleware('permission:event-list|event-create|event-edit|event-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:event-create', ['only' => ['create','store']]);
+         $this->middleware('permission:event-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:event-delete', ['only' => ['destroy']]);
     }
 
     public function index()
@@ -187,7 +191,7 @@ class EventController extends Controller
             $old_image_path = public_path('uploads/event2/' . $event->image2);
             if (file_exists($old_image_path) && is_file($old_image_path)) {
                 unlink($old_image_path);
-            } 
+            }
 
             $get_name_image = $get_image2->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));

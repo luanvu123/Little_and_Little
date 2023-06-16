@@ -9,7 +9,11 @@ class OrderController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
+         $this->middleware('permission:order-list|order-create|order-edit|order-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:order-create', ['only' => ['create','store']]);
+         $this->middleware('permission:order-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:order-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
